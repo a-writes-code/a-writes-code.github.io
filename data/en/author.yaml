@@ -1,0 +1,12 @@
+name: "Aritra Das"
+nickname: ""
+greeting: "Hi, I am"
+image: "images/profile.jpg"
+
+contactInfo:
+  email: "aritrad@umd.edu"
+  github: "a-writes-code"
+
+summary:
+  - Researcher in machine learning
+  - Interested in learning theory and physics of learning

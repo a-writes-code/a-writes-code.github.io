@@ -20,3 +20,7 @@ home = ["HTML", "RSS", "JSON"]
 
 [params]
   background = "images/background.jpg"
+
+[params.features]
+  search = false
+
