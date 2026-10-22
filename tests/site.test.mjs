@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { createSiteServer } from "../scripts/serve.mjs";
-import { loss, gradient, descend } from "../assets/landscape.js";
+import { spinEnergy, metropolisSweep } from "../assets/brain-physics.js";
 
 test("the public site and all local assets load at both root and GitHub project paths", async (t) => {
   for (const basePath of ["/", "/personal-website/"]) {
@@ -22,7 +22,7 @@ test("the public site and all local assets load at both root and GitHub project 
           files.length >= 4,
           "Styles, script, portrait, and favicon must be present",
         );
-        for (const path of [...files, "./assets/landscape.js"]) {
+        for (const path of [...files, "./assets/brain-physics.js"]) {
           const asset = await fetch(new URL(path, pageUrl));
           assert.equal(
             asset.status,
@@ -63,31 +63,32 @@ test("the public site and all local assets load at both root and GitHub project 
   }
 });
 
-test("gradient descent follows the displayed surface and lowers loss over the full slider range", () => {
-  const h = 1e-5;
-  for (const [x, z] of [
-    [2.6, 2.5],
-    [-2.7, 2.6],
-    [2.8, -2.5],
-    [-2.4, -2.7],
-  ]) {
-    const [gx, gz] = gradient(x, z);
-    assert.ok(
-      Math.abs(gx - (loss(x + h, z) - loss(x - h, z)) / (2 * h)) < 1e-7,
-    );
-    assert.ok(
-      Math.abs(gz - (loss(x, z + h) - loss(x, z - h)) / (2 * h)) < 1e-7,
-    );
-    for (const rate of [0.01, 0.04, 0.18]) {
-      let point = { x, z };
-      const initial = loss(x, z);
-      for (let step = 0; step < 600; step++) {
-        const next = descend(point, rate);
-        assert.ok(Number.isFinite(next.x) && Number.isFinite(next.z));
-        assert.ok(loss(next.x, next.z) <= loss(point.x, point.z) + 1e-12);
-        point = next;
-      }
-      assert.ok(loss(point.x, point.z) < initial - 0.1);
-    }
+test("the Ising simulation preserves spins and obeys its temperature-dependent energy rule", () => {
+  const size = 9;
+  const aligned = Array(size * size).fill(1);
+  assert.equal(spinEnergy(aligned, size), -2 * size * size);
+  let seed = 72;
+  const random = () => {
+    seed = (1664525 * seed + 1013904223) >>> 0;
+    return seed / 4294967296;
+  };
+  metropolisSweep(aligned, size, 0, random);
+  assert.ok(
+    aligned.every((s) => s === 1),
+    "Zero-temperature aligned spins cannot gain energy",
+  );
+  const states = Array.from({ length: size * size }, () =>
+    random() < 0.5 ? -1 : 1,
+  );
+  for (let sweep = 0; sweep < 50; sweep++) {
+    const before = spinEnergy(states, size);
+    metropolisSweep(states, size, 0, random);
+    assert.ok(spinEnergy(states, size) <= before);
+    assert.ok(states.every((s) => s === 1 || s === -1));
   }
+  metropolisSweep(aligned, size, 1000000, random);
+  assert.ok(
+    spinEnergy(aligned, size) > -2 * size * size,
+    "Thermal fluctuations allow energy-increasing flips",
+  );
 });

@@ -358,6 +358,90 @@
 .story-prose em {
   color: var(--ink);
 }
+.story-lede p {
+  margin: 0;
+}
+.story-body {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.95;
+  overflow-wrap: anywhere;
+}
+.story-body h2 {
+  padding-top: 43px;
+  color: var(--ink);
+}
+.story-body h3 {
+  font-family: var(--serif);
+  color: var(--ink);
+  font-size: 23px;
+  line-height: 1.4;
+  margin: 30px 0 15px;
+}
+.story-body p,
+.story-body ul,
+.story-body ol {
+  margin: 0 0 19px;
+}
+.story-body ul,
+.story-body ol {
+  padding-left: 24px;
+}
+.story-body li + li {
+  margin-top: 10px;
+}
+.story-body strong {
+  color: var(--ink);
+}
+.story-body a {
+  color: var(--green);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.story-body blockquote {
+  background: var(--surface);
+  border-left: 2px solid var(--green);
+  padding: 24px 28px;
+  margin: 35px 0;
+}
+.story-body blockquote p:last-child {
+  margin-bottom: 0;
+}
+.story-body img,
+.story-body video,
+.story-body svg {
+  max-width: 100%;
+  height: auto;
+}
+.story-body figure {
+  margin: 30px 0;
+}
+.story-body figcaption {
+  font-size: 12px;
+  margin-top: 12px;
+}
+.story-body pre {
+  padding: 20px;
+  background: var(--surface);
+  overflow-x: auto;
+  font-size: 12px;
+}
+.story-body code {
+  font-family: var(--mono);
+}
+.story-body table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+  margin-block: 24px;
+}
+.story-body th,
+.story-body td {
+  padding: 10px 15px;
+  border: 1px solid var(--line);
+  text-align: left;
+}
 .story-takeaway {
   background: var(--surface);
   border-left: 2px solid var(--green);
@@ -730,6 +814,15 @@
   .story-prose section > p {
     font-size: 13px;
     line-height: 1.95;
+  }
+  .story-body {
+    font-size: 13px;
+  }
+  .story-body h2 {
+    padding-top: 32px;
+  }
+  .story-body blockquote {
+    padding: 20px;
   }
   .story-takeaway {
     padding: 23px;

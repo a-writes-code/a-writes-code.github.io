@@ -1,11 +1,20 @@
 import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
+import { parseProjectMarkdown } from "./markdown.mjs";
 
 const root = fileURLToPath(new URL("../", import.meta.url));
 const readJson = async (path) =>
   JSON.parse(await readFile(`${root}${path}`, "utf8"));
 const config = await readJson("content/site.json");
 const projects = await readJson("content/projects.json");
+for (const project of projects) {
+  if (!/^[a-z0-9-]+$/.test(project.slug))
+    throw new Error("Invalid project slug");
+  const article = parseProjectMarkdown(
+    await readFile(`${root}content/projects/${project.slug}.md`, "utf8"),
+  );
+  Object.assign(project, article);
+}
 const publications = await readJson("data/publications.json");
 const escape = (text = "") =>
   String(text).replace(
@@ -15,7 +24,6 @@ const escape = (text = "") =>
         character
       ],
   );
-const prose = (text) => escape(text).replace(/\*([^*]+)\*/g, "<em>$1</em>");
 const externalLink = (href, text, className = "text-link") =>
   `<a class="${className}" href="${escape(href)}" target="_blank" rel="noopener noreferrer">${escape(text)} <span aria-hidden="true">↗</span></a>`;
 const byId = new Map(projects.map((project) => [project.scholarId, project]));
@@ -88,12 +96,12 @@ function storyPage(project, index) {
   const next = projects[(index + 1) % projects.length];
   return `<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light dark"><meta name="description" content="${escape(project.summary)}"><meta property="og:title" content="${escape(project.title)} — Aritra Das"><meta property="og:description" content="${escape(project.summary)}"><meta property="og:type" content="article"><meta name="theme-color" content="#f7f6f0"><title>${escape(project.title)} — Aritra Das</title><link rel="canonical" href="${config.siteUrl}/projects/${project.slug}/"><link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../../assets/style.css"><link rel="stylesheet" href="../../assets/projects.css"><script>try { const t = localStorage.getItem('aritra-theme'); if(t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch {}</script><script type="module" src="../../assets/main.js"></script></head>
-<body class="story-page"><a class="skip-link" href="#main">Skip to content</a>${header()}<main id="main"><article class="container story-article"><a class="story-back text-link" href="../../#projects"><span aria-hidden="true">←</span> All project stories</a><div class="story-heading"><div><p class="eyebrow">${escape(project.kicker)} · ${escape(project.year)}</p><h1>${escape(project.title)}</h1><p class="story-lede">${escape(project.lede)}</p><p class="story-authors">A project with ${escape(
+<body class="story-page"><a class="skip-link" href="#main">Skip to content</a>${header()}<main id="main"><article class="container story-article"><a class="story-back text-link" href="../../#projects"><span aria-hidden="true">←</span> All project stories</a><div class="story-heading"><div><p class="eyebrow">${escape(project.kicker)} · ${escape(project.year)}</p><h1>${project.titleHtml}</h1><div class="story-lede">${project.introHtml}</div><p class="story-authors">A project with ${escape(
     project.authors
       .split(", ")
       .filter((author) => author !== config.name)
       .join(", "),
-  )}.</p></div>${animation(project)}</div><div class="story-reading"><div class="story-prose">${project.sections.map((section) => `<section><h2>${escape(section.heading)}</h2>${section.paragraphs.map((paragraph) => `<p>${prose(paragraph)}</p>`).join("")}</section>`).join("\n")}<aside class="story-takeaway"><p class="eyebrow">THE TAKEAWAY</p><p>${escape(project.takeaway)}</p></aside><section class="story-terms"><h2>A few useful terms</h2><dl>${project.terms.map(([term, definition]) => `<div><dt>${escape(term)}</dt><dd>${escape(definition)}</dd></div>`).join("")}</dl></section><section class="story-reference"><p class="eyebrow">THE PAPER</p><h2>${escape(project.paperTitle)}</h2><p>${escape(project.authors)}</p><p>${escape(project.venue)}</p><div class="story-paper-links">${externalLink(project.paperUrl, "Read the paper")}${project.codeUrl ? externalLink(project.codeUrl, "Research code") : ""}${externalLink(publications.profile.url, "Google Scholar")}</div></section></div></div><a class="next-story" href="../${next.slug}/"><div><p class="eyebrow">NEXT PROJECT</p><h2>${escape(next.shortTitle)}</h2></div><span aria-hidden="true">→</span></a></article></main><footer class="site-footer"><div class="container footer-inner"><span>© <span id="year">2026</span> Aritra Das. Views are my own.</span><a href="../../#projects">All projects <span aria-hidden="true">↗</span></a></div></footer></body></html>\n`;
+  )}.</p></div>${animation(project)}</div><div class="story-reading"><div class="story-prose"><div class="story-body">${project.bodyHtml}</div><section class="story-reference"><p class="eyebrow">THE PAPER</p><h2>${escape(project.paperTitle)}</h2><p>${escape(project.authors)}</p><p>${escape(project.venue)}</p><div class="story-paper-links">${externalLink(project.paperUrl, "Read the paper")}${project.codeUrl ? externalLink(project.codeUrl, "Research code") : ""}${externalLink(publications.profile.url, "Google Scholar")}</div></section></div></div><a class="next-story" href="../${next.slug}/"><div><p class="eyebrow">NEXT PROJECT</p><h2>${escape(next.shortTitle)}</h2></div><span aria-hidden="true">→</span></a></article></main><footer class="site-footer"><div class="container footer-inner"><span>© <span id="year">2026</span> Aritra Das. Views are my own.</span><a href="${config.repositoryUrl}/edit/main/content/projects/${project.slug}.md" target="_blank" rel="noopener noreferrer">Edit this page on GitHub <span aria-hidden="true">↗</span></a></div></footer></body></html>\n`;
 }
 
 let html = await readFile(`${root}index.html`, "utf8");

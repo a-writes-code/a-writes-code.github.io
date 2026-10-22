@@ -350,7 +350,7 @@ img {
   top: -4px;
   left: -3px;
 }
-.landscape-panel {
+.brain-panel {
   align-self: stretch;
   display: flex;
   flex-direction: column;
@@ -388,7 +388,7 @@ img {
   position: relative;
   min-height: 270px;
 }
-#landscape {
+#brain-physics {
   display: block;
   width: 100%;
   height: 270px;
@@ -424,7 +424,7 @@ img {
   font-weight: 400;
   color: var(--green);
 }
-.landscape-panel figcaption {
+.brain-panel figcaption {
   padding: 23px 24px 16px;
 }
 .figure-description h2 {
@@ -436,6 +436,35 @@ img {
   font-size: 11px;
   color: var(--muted);
   margin-top: 3px;
+}
+.brain-panel .figure-description p {
+  line-height: 1.7;
+  max-width: 400px;
+}
+.brain-panel .figure-note {
+  font-size: 9px;
+  line-height: 1.7;
+  margin-top: 15px;
+}
+.brain-panel .canvas-wrap {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+.spin-readout {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 16px;
+}
+.spin-readout .small-mono {
+  font-size: 7px;
+  letter-spacing: 0.3px;
+}
+.spin-readout b {
+  font-weight: 400;
+  color: var(--green);
+  margin-left: 7px;
 }
 .simulation-controls {
   align-items: center;
@@ -678,11 +707,11 @@ summary::-webkit-details-marker {
 }
 .portrait-wrap img {
   width: 190px;
-  height: 195px;
+  height: auto;
+  aspect-ratio: 3 / 4;
   object-fit: cover;
-  object-position: 50% 55%;
+  object-position: center;
   border-radius: 3px;
-  filter: saturate(0.75);
 }
 .portrait-caption {
   font-size: 7px;
@@ -954,7 +983,7 @@ a.interest:hover h3 {
   .canvas-wrap {
     min-height: 320px;
   }
-  #landscape {
+  #brain-physics {
     height: 320px;
   }
 }
@@ -1020,11 +1049,11 @@ a.interest:hover h3 {
   .figure-topline .eyebrow {
     font-size: 7px;
   }
-  .landscape-panel figcaption {
+  .brain-panel figcaption {
     padding: 20px 18px 14px;
   }
   .canvas-wrap,
-  #landscape {
+  #brain-physics {
     min-height: 246px;
     height: 246px;
   }
@@ -1110,11 +1139,11 @@ a.interest:hover h3 {
     font-size: 7px;
   }
   .canvas-wrap,
-  #landscape {
+  #brain-physics {
     min-height: 230px;
     height: 230px;
   }
-  .landscape-panel figcaption {
+  .brain-panel figcaption {
     padding: 16px 14px 12px;
   }
   .figure-description h2 {
@@ -1342,7 +1371,7 @@ a.interest:hover h3 {
   .hero-affiliation p {
     font-size: 9px;
   }
-  .landscape-panel {
+  .brain-panel {
     width: 100%;
     max-width: 500px;
     justify-self: center;
@@ -1360,7 +1389,7 @@ a.interest:hover h3 {
   .canvas-wrap {
     min-height: 248px;
   }
-  #landscape {
+  #brain-physics {
     height: 248px;
     min-height: 248px;
     max-height: 310px;
@@ -1381,7 +1410,7 @@ a.interest:hover h3 {
   .plot-readout {
     left: 19px;
   }
-  .landscape-panel figcaption {
+  .brain-panel figcaption {
     padding: 20px 19px 14px;
   }
   .figure-description h2 {
@@ -1508,7 +1537,7 @@ a.interest:hover h3 {
   }
   .portrait-wrap img {
     width: 105px;
-    height: 124px;
+    height: auto;
   }
   .portrait-caption {
     font-size: 5px;

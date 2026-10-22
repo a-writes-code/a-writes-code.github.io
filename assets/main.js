@@ -1,4 +1,4 @@
-import { initLandscape } from "./landscape.js";
+import { initBrainPhysics } from "./brain-physics.js";
 import { initProjectAnimations } from "./project-animations.js";
 
 document.documentElement.classList.add("js");
@@ -119,7 +119,7 @@ document
   .querySelectorAll("main>section[id]")
   .forEach((section) => sectionObserver.observe(section));
 
-initLandscape();
+initBrainPhysics();
 initProjectAnimations();
 
 const publicationSearch = document.querySelector("#publication-search");

@@ -1,7 +1,6 @@
 [
   {
     "slug": "homid",
-    "title": "How many dimensions does a dataset really have?",
     "shortTitle": "HomID: a stress test for dimension estimators",
     "kicker": "GEOMETRY · INTRINSIC DIMENSION",
     "year": "2025–2026",
@@ -9,43 +8,11 @@
     "scholarId": "EVtLmwcAAAAJ:Y0pCki6q_DkC",
     "visual": "manifold",
     "summary": "Different estimators can give very different answers for the same data. HomID tests them on curved spaces whose true dimension is known.",
-    "lede": "A surface can sit in three dimensions while needing only two coordinates to describe a point. The same distinction appears in machine learning: the number of recorded features need not equal the number of independent variables in the data.",
     "authors": "Aritra Das, Joseph T. Iosue, Victor V. Albert",
     "paperTitle": "HomID: Benchmarking Intrinsic Dimension Estimators on Homogeneous Manifolds with Anisotropic Embeddings",
     "paperUrl": "https://arxiv.org/abs/2510.01335",
     "paperType": "Preprint",
     "venue": "arXiv:2510.01335",
-    "sections": [
-      {
-        "heading": "A benchmark with a known answer",
-        "paragraphs": [
-          "This smaller number is the *intrinsic dimension*. Estimating it from samples is difficult. On realistic data, there is usually no exact answer against which to check an estimate.",
-          "With my collaborators, I developed HomID. It uses families of homogeneous spaces, including Stiefel, Grassmann, and flag manifolds. Their dimensions are known. This lets us compare an estimator’s answer with the ground truth."
-        ]
-      },
-      {
-        "heading": "Geometry is part of the test",
-        "paragraphs": [
-          "We compare estimators across these spaces and apply controlled distortions and noise. The aim is to test how the embedding and local geometry affect dimension estimates.",
-          "The experiments reveal substantial differences between methods. They also show why success on familiar, nearly isotropic benchmarks can be misleading. Local anisotropy is a useful stressor, but our evidence does not establish it as the sole cause of estimation error."
-        ]
-      },
-      {
-        "heading": "What the animation shows",
-        "paragraphs": [
-          "The animation stretches a simple two-dimensional surface. Its shape in the surrounding space changes, while its intrinsic dimension stays fixed. This is a conceptual example of the distinction the benchmark studies. It is not a HomID sample or an estimator-performance plot."
-        ]
-      }
-    ],
-    "takeaway": "A reliable dimension estimator must handle changes in geometry, not just recover the dimension of a sphere.",
-    "terms": [
-      [
-        "Intrinsic dimension",
-        "The number of independent local coordinates needed to describe a manifold."
-      ],
-      ["Manifold", "A space that locally resembles ordinary Euclidean space."],
-      ["Anisotropy", "Dependence of a geometric property on direction."]
-    ],
     "animationLabel": "A rotating point cloud on a surface stretches without changing its two intrinsic dimensions.",
     "animationNote": "Illustrative two-dimensional surface; not a benchmark sample or measured estimator output.",
     "stages": [
@@ -56,7 +23,6 @@
   },
   {
     "slug": "learning-to-grok",
-    "title": "Can a model learn a new task from its prompt?",
     "shortTitle": "Learning to grok: from examples to new tasks",
     "kicker": "TRANSFORMERS · IN-CONTEXT LEARNING",
     "year": "2024",
@@ -64,50 +30,12 @@
     "scholarId": "EVtLmwcAAAAJ:UeHWp8X0CEIC",
     "visual": "context",
     "summary": "We use modular arithmetic to study when a transformer can combine learned skills and solve tasks it did not see during training.",
-    "lede": "A model may see examples of a new task in its prompt and then answer a new question. Its weights do not change during this process. What did training teach it that makes this possible?",
     "authors": "Tianyu He, Darshil Doshi, Aritra Das, Andrey Gromov",
     "paperTitle": "Learning to grok: Emergence of in-context learning and skill composition in modular arithmetic tasks",
     "paperUrl": "https://proceedings.neurips.cc/paper_files/paper/2024/hash/17d60fef592086d1a5cb136f1946df59-Abstract-Conference.html",
     "paperType": "Conference",
     "venue": "NeurIPS 2024",
     "codeUrl": "https://github.com/ablghtianyi/ICL_Modular_Arithmetic",
-    "sections": [
-      {
-        "heading": "A controlled version of a familiar capability",
-        "paragraphs": [
-          "We study *in-context learning* using a family of modular arithmetic tasks. Each task has the form z = ax + by, with the result taken modulo a prime number. Changing the coefficients gives a different task.",
-          "We train a GPT-style transformer on some tasks and reserve others for testing. The comparison separates success on new examples of familiar tasks from success on genuinely new coefficient pairs."
-        ]
-      },
-      {
-        "heading": "Task diversity changes what the model learns",
-        "paragraphs": [
-          "As the number of training tasks grows, the model can move from solving familiar tasks to generalizing across tasks. We examine the representations in its attention heads and feed-forward layers to understand the computations behind this behavior.",
-          "The transition depends on architecture and training. In the deeper models we study, generalization to unseen tasks can be transient. Training longer is not always better; early stopping can matter."
-        ]
-      },
-      {
-        "heading": "Reading the little example",
-        "paragraphs": [
-          "The animation reveals examples of one hidden modular rule, then asks a new question. It illustrates the task format and the role of context. The displayed answer comes from exact arithmetic, not a transformer running in your browser. The research question is when a trained network learns to perform this kind of inference."
-        ]
-      }
-    ],
-    "takeaway": "Training on a more diverse collection of tasks can change whether a model learns reusable computations.",
-    "terms": [
-      [
-        "In-context learning",
-        "Using examples in a prompt to perform a task without updating model weights."
-      ],
-      [
-        "Modular arithmetic",
-        "Arithmetic in which results wrap around after a fixed integer."
-      ],
-      [
-        "Out-of-distribution task",
-        "A task excluded from the set of tasks used for training."
-      ]
-    ],
     "animationLabel": "Examples reveal a hidden modular rule, followed by an exact answer to a new input.",
     "animationNote": "Exact arithmetic illustrates the task; no trained transformer is running here.",
     "stages": [
@@ -118,7 +46,6 @@
   },
   {
     "slug": "modular-polynomials",
-    "title": "Why are some arithmetic rules easier to learn than others?",
     "shortTitle": "Building modular arithmetic from expert circuits",
     "kicker": "LEARNABILITY · ANALYTICAL NETWORKS",
     "year": "2024",
@@ -126,50 +53,11 @@
     "scholarId": "EVtLmwcAAAAJ:IjCSPb-OGe4C",
     "visual": "polynomial",
     "summary": "An exact network can solve a task that ordinary training struggles with. We explore this gap by composing analytical arithmetic circuits.",
-    "lede": "Knowing that a neural network can represent a function does not tell us whether training will find it. Modular arithmetic gives us a small setting in which to make this distinction precise.",
     "authors": "Darshil Doshi, Tianyu He, Aritra Das, Andrey Gromov",
     "paperTitle": "Grokking Modular Polynomials",
     "paperUrl": "https://arxiv.org/abs/2406.03495",
     "paperType": "Preprint",
     "venue": "arXiv:2406.03495",
-    "sections": [
-      {
-        "heading": "Start with networks we can solve",
-        "paragraphs": [
-          "We construct analytical weights for modular multiplication and for addition with multiple terms. These are explicit solutions: the network’s computation can be checked directly.",
-          "We then compare these solutions with representations learned by trained networks. In the tasks we study, training can produce similar periodic structure when the networks generalize."
-        ]
-      },
-      {
-        "heading": "Composition makes the distinction visible",
-        "paragraphs": [
-          "By combining these *expert* computations, we can construct networks that evaluate arbitrary modular polynomials, given sufficient width. This establishes representational capability for the constructed architecture.",
-          "It does not mean that standard training reliably discovers every such solution. We propose a learnability classification and test it on several polynomial tasks. The classification is supported by experiments; a general proof remains open."
-        ]
-      },
-      {
-        "heading": "A circuit you can follow",
-        "paragraphs": [
-          "The animation evaluates x² + xy modulo seven. Two multiplication branches feed an addition step. Each number is computed exactly. This is a schematic of composing arithmetic operations, rather than a drawing of the full analytical neural network.",
-          "The broader lesson is that *a solution exists* and *training finds a solution* are different statements. Controlled tasks let us ask what lies between them."
-        ]
-      }
-    ],
-    "takeaway": "Representation and learnability are different questions. Constructing a solution helps expose the gap.",
-    "terms": [
-      [
-        "Grokking",
-        "Delayed generalization after a model has already fit its training examples."
-      ],
-      [
-        "Analytical weights",
-        "Network parameters specified by a mathematical construction."
-      ],
-      [
-        "Modular polynomial",
-        "A polynomial whose output is reduced modulo a fixed integer."
-      ]
-    ],
     "animationLabel": "Two exact modular multiplication operations are combined to evaluate a polynomial.",
     "animationNote": "An arithmetic schematic; not the full neural architecture or a training result.",
     "stages": [
@@ -180,7 +68,6 @@
   },
   {
     "slug": "cellular-automata",
-    "title": "When does a model need more depth?",
     "shortTitle": "Model depth through the lens of cellular automata",
     "kicker": "MODEL DEPTH · CONTROLLED DATASETS",
     "year": "2024",
@@ -188,49 +75,11 @@
     "scholarId": "EVtLmwcAAAAJ:Tyk-4Ss8FVUC",
     "visual": "automata",
     "summary": "Simple local rules generate patterns with very different behavior. We use these tasks to study the relationship between model depth and data complexity.",
-    "lede": "Making a network deeper changes how it can organize a computation. But a larger model also has more parameters. To study depth itself, we need tasks with controllable structure and a comparison that holds model size in check.",
     "authors": "Tianyu He, Darshil Doshi, Aritra Das, Andrey Gromov",
     "paperTitle": "Exploring model depth and data complexity through the lens of cellular automata",
     "paperUrl": "https://openreview.net/forum?id=SGoI97b5KK",
     "paperType": "Workshop",
     "venue": "Scientific Methods for Understanding Deep Learning, NeurIPS 2024 workshop",
-    "sections": [
-      {
-        "heading": "Small rules, rich patterns",
-        "paragraphs": [
-          "An elementary cellular automaton consists of a line of binary cells. At each step, a cell updates from its own state and the states of its two neighbors. Repeating this small rule creates a full pattern through time.",
-          "Different rules produce different behavior. This makes cellular automata useful controlled datasets: we can change the data-generating rule while keeping the basic input format fixed."
-        ]
-      },
-      {
-        "heading": "Compare depth at a fixed parameter budget",
-        "paragraphs": [
-          "In our workshop study, we train autoregressive models of different depths on these datasets. The comparison holds parameter count fixed to separate depth from the simple effect of adding more parameters.",
-          "The study reports that deeper models perform better in the tested setting, and that more complex rules require more depth to emulate. Attention patterns provide a way to examine the computations involved. These are findings for the studied tasks, not a universal rule that deeper networks always win."
-        ]
-      },
-      {
-        "heading": "Watch the data being made",
-        "paragraphs": [
-          "The animation runs two elementary rules from a single active cell. Each row is one update. These are actual cellular automaton states, generated in your browser. They illustrate the data source; they do not show a model prediction or a measured comparison of network performance."
-        ]
-      }
-    ],
-    "takeaway": "The value of depth depends on the structure of the task. Controlled generators help us study that relationship.",
-    "terms": [
-      [
-        "Cellular automaton",
-        "A system of cells updated by a local rule at discrete time steps."
-      ],
-      [
-        "Model depth",
-        "The number of successive layers or blocks in a neural network."
-      ],
-      [
-        "Parameter budget",
-        "The total number of trainable model parameters used in a comparison."
-      ]
-    ],
     "animationLabel": "Elementary cellular automata rules 90 and 30 generate rows of binary cells from a single seed.",
     "animationNote": "Actual cellular automaton evolution; not a neural network prediction.",
     "stages": [
@@ -241,7 +90,6 @@
   },
   {
     "slug": "grokking-with-noise",
-    "title": "Can a network learn the rule and memorize the mistakes?",
     "shortTitle": "To grok or not to grok: learning with wrong labels",
     "kicker": "GROKKING · MEMORIZATION · ROBUSTNESS",
     "year": "2023–2024",
@@ -249,50 +97,11 @@
     "scholarId": "EVtLmwcAAAAJ:qjMakFHDy7sC",
     "visual": "noise",
     "summary": "We deliberately corrupt arithmetic labels to separate rule learning from memorization, then examine the neurons that support each behavior.",
-    "lede": "A network that fits its training set may have learned a rule, memorized individual examples, or done both. Wrong labels make this ambiguity useful: they let us ask what the network does when the examples disagree with the rule.",
     "authors": "Darshil Doshi, Aritra Das, Tianyu He, Andrey Gromov",
     "paperTitle": "To grok or not to grok: Disentangling generalization and memorization on corrupted algorithmic datasets",
     "paperUrl": "https://arxiv.org/abs/2310.13061",
     "paperType": "Preprint",
     "venue": "arXiv:2310.13061",
-    "sections": [
-      {
-        "heading": "Introduce mistakes we can identify",
-        "paragraphs": [
-          "We train neural networks on modular arithmetic tasks and replace some training labels with incorrect answers. The underlying arithmetic rule remains known, so we can evaluate rule learning separately from fitting the corrupted examples.",
-          "The networks can do both. In the studied settings, they can generalize to clean examples while also memorizing incorrect training labels. Fitting mistakes does not, by itself, show that the rule was never learned."
-        ]
-      },
-      {
-        "heading": "Look inside, then intervene",
-        "paragraphs": [
-          "We examine periodic structure in the learned weights to distinguish neuron populations. This gives a testable link between an internal representation and behavior.",
-          "Pruning the identified memorizing neurons reduces performance on corrupted examples and can improve performance on clean data. We also study how regularization changes this balance. The detailed interpretation is tied to the architectures and controlled tasks we analyze."
-        ]
-      },
-      {
-        "heading": "What the animation leaves out",
-        "paragraphs": [
-          "The animation starts with an arithmetic table, introduces wrong labels, and separates schematic rule-learning and memorizing units. It illustrates the intervention and the distinction we study. The colored units are not measured neurons, and their counts do not encode an experimental result.",
-          "The central question is more useful than a simple choice between learning and memorization: *which computations coexist, and how can we tell them apart?*"
-        ]
-      }
-    ],
-    "takeaway": "Learning a rule and memorizing exceptions can coexist. Targeted interventions help distinguish their roles.",
-    "terms": [
-      [
-        "Label corruption",
-        "Replacing a training example’s target with an incorrect answer."
-      ],
-      [
-        "Pruning",
-        "Removing selected units or parameters from a trained network."
-      ],
-      [
-        "Generalization",
-        "Correct performance on examples excluded from training."
-      ]
-    ],
     "animationLabel": "An arithmetic table acquires wrong labels, followed by a schematic separation and pruning of memorizing units.",
     "animationNote": "Conceptual neuron groups; colors and counts are not experimental measurements.",
     "stages": [
@@ -303,7 +112,6 @@
   },
   {
     "slug": "fractionalized-holes",
-    "title": "How can a missing particle become a moving boundary?",
     "shortTitle": "Fractionalized holes in a one-dimensional gauge theory",
     "kicker": "QUANTUM MATTER · GAUGE THEORY",
     "year": "2021–2023",
@@ -311,46 +119,11 @@
     "scholarId": "EVtLmwcAAAAJ:zYLM7Y9cAGgC",
     "visual": "holes",
     "summary": "Near full filling, a hole can separate two shifted quantum backgrounds. We study the resulting motion, entanglement, and emergent integrability.",
-    "lede": "Removing a particle from an interacting system need not create a simple empty spot. The surrounding quantum state can reorganize, giving the missing particle a different description and different dynamics.",
     "authors": "Aritra Das, Umberto Borla, Sergej Moroz",
     "paperTitle": "Fractionalized holes in one-dimensional Z₂ gauge theory coupled to fermion matter: Deconfined dynamics and emergent integrability",
     "paperUrl": "https://doi.org/10.1103/PhysRevB.107.064302",
     "paperType": "Journal",
     "venue": "Physical Review B 107, 064302 (2023)",
-    "sections": [
-      {
-        "heading": "A hole as a domain wall",
-        "paragraphs": [
-          "We study fermions coupled to a one-dimensional Z₂ gauge field. Near full filling, two degenerate backgrounds differ by a lattice translation. A hole can act as a boundary between them.",
-          "This *domain-wall* description explains how isolated holes can be deconfined in this setting, even though the original fermionic particles are confined. The distinction depends on which background and excitations we consider."
-        ]
-      },
-      {
-        "heading": "Follow the dynamics",
-        "paragraphs": [
-          "We combine analytical arguments with numerical calculations of hole spreading and entanglement. In the strong string-tension limit, the effective description has correlated hopping: a hole moves by two sites, subject to the occupancy of the intermediate site.",
-          "This limit connects to an integrable model. We also examine how short-range interactions change the low-energy behavior. The results depend on filling and interaction regime; deconfinement of isolated holes near full filling is not a statement about every state at finite hole density."
-        ]
-      },
-      {
-        "heading": "A moving boundary, drawn simply",
-        "paragraphs": [
-          "The animation shows a hole between two shifted electric-link patterns. Moving the hole also moves their boundary. It is a schematic of the domain-wall picture, not a quantum time-evolution simulation. The paper treats the wave dynamics and entanglement that this simple drawing cannot show."
-        ]
-      }
-    ],
-    "takeaway": "The right description of an excitation depends on its background. A missing particle can behave as a domain wall.",
-    "terms": [
-      ["Domain wall", "A boundary between two distinct ordered backgrounds."],
-      [
-        "Deconfinement",
-        "The absence of an energy cost that grows without bound as the relevant excitations separate."
-      ],
-      [
-        "Integrability",
-        "A special mathematical structure that constrains a system’s dynamics."
-      ]
-    ],
     "animationLabel": "A hole moves between two shifted electric-link backgrounds, moving the domain wall with it.",
     "animationNote": "Schematic domain-wall motion; not simulated quantum dynamics.",
     "stages": [

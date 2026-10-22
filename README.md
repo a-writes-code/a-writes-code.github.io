@@ -6,10 +6,11 @@ The live site is <https://a-writes-code.github.io/>. The repository is `a-writes
 
 ## Preview
 
-Use Node.js 22 or newer and Python 3.9 or newer. No package installation is required.
+Use Node.js 22 or newer and Python 3.9 or newer. The pinned `marked` package parses Markdown during the build. The public website has no runtime packages.
 
 ```sh
 cd /Users/aritradas/Academic/Random/personal-website
+npm ci --ignore-scripts
 npm start
 ```
 
@@ -17,22 +18,28 @@ Open <http://127.0.0.1:4173>. Use `PORT=4174 npm start` to select a different po
 
 ## Edit
 
-| File                           | Purpose                                                                                    |
-| ------------------------------ | ------------------------------------------------------------------------------------------ |
-| `content/projects.json`        | Project titles, summaries, article sections, paper links, glossary, and animation captions |
-| `content/site.json`            | Author name, Scholar profile ID, and public site URL                                       |
-| `data/publications.json`       | Last successful Scholar snapshot; maintained by the updater                                |
-| `index.html`                   | Homepage layout and personal information outside the generated blocks                      |
-| `projects/*/index.html`        | Generated project articles; edit `content/projects.json` instead                           |
-| `assets/style.css`             | Original layout, color themes, and common components                                       |
-| `assets/projects.css`          | Project cards, article layout, publication list, and navigation additions                  |
-| `assets/main.js`               | Navigation, theme, publication search, and other page controls                             |
-| `assets/project-animations.js` | The six 12-second explanatory animations                                                   |
-| `assets/landscape.js`          | The original interactive loss landscape                                                    |
-| `scripts/render-content.mjs`   | Renders project pages and the two generated homepage sections                              |
-| `scripts/sync_publications.py` | Fetches and validates the public Scholar profile                                           |
-| `.github/workflows/site.yml`   | Weekly refresh, validation, build, and Pages deployment                                    |
-| `docs/research-sources.md`     | Paper inventory, scientific evidence, and source limits                                    |
+**To rewrite a project, use its “Edit this page on GitHub” footer link.** Each article has its own Markdown file in [`content/projects/`](content/projects/). Commit to `main` to build and publish automatically. See [the editing guide](docs/editing-projects.md) for examples. You can change the title, introduction, and full article without editing HTML or animation code.
+
+| File                           | Purpose                                                                                 |
+| ------------------------------ | --------------------------------------------------------------------------------------- |
+| `content/projects/*.md`        | One editable article per project: title, introduction, sections, takeaway, and glossary |
+| `content/projects.json`        | Homepage card titles and summaries, paper metadata, and animation captions              |
+| `content/site.json`            | Author name, Scholar profile ID, and public site URL                                    |
+| `data/publications.json`       | Last successful Scholar snapshot; maintained by the updater                             |
+| `index.html`                   | Homepage layout and personal information outside the generated blocks                   |
+| `projects/*/index.html`        | Generated project articles; edit the matching Markdown source instead                   |
+| `assets/style.css`             | Original layout, color themes, and common components                                    |
+| `assets/projects.css`          | Project cards, article layout, publication list, and navigation additions               |
+| `assets/main.js`               | Navigation, theme, publication search, and other page controls                          |
+| `assets/project-animations.js` | The six 12-second explanatory animations                                                |
+| `assets/brain-physics.js`      | Cortical mesh and neural signals, with a temperature-controlled Ising simulation        |
+| `assets/portrait.jpg`          | User-supplied Brooklyn portrait                                                         |
+| `assets/Curriculum_Vitae.pdf`  | User-supplied current CV, linked from the homepage                                      |
+| `scripts/markdown.mjs`         | Markdown title, introduction, and body parsing                                          |
+| `scripts/render-content.mjs`   | Renders project pages and the two generated homepage sections                           |
+| `scripts/sync_publications.py` | Fetches and validates the public Scholar profile                                        |
+| `.github/workflows/site.yml`   | Weekly refresh, validation, build, and Pages deployment                                 |
+| `docs/research-sources.md`     | Paper inventory, scientific evidence, and source limits                                 |
 
 After changing project content, run:
 
@@ -48,9 +55,9 @@ This regenerates the articles and homepage blocks. Keep the `PROJECTS` and `PUBL
 npm run check
 ```
 
-The command checks JavaScript syntax, renders the content, runs Node and Python tests, and builds `dist/`. The expected result is six passing Node tests, five passing Python tests, and `Built static website in dist/`.
+The command checks JavaScript syntax, renders the content, runs Node and Python tests, and builds `dist/`. The expected result is seven passing Node tests, five passing Python tests, and `Built static website in dist/`.
 
-The HTTP tests serve the homepage and all project articles below a repository subpath. They check local assets, navigation, missing files, and path traversal protection. Numerical tests check the gradient descent, exact modular arithmetic, and cellular automaton examples. The publication tests cover HTML entities, accessible math labels, missing years, bot pages, incorrect authors, incomplete pagination, duplicate records, and preservation of the last good snapshot.
+The HTTP tests serve the homepage and all project articles below a repository subpath. They check local assets, navigation, article output against its Markdown source, missing files, and path traversal protection. Numerical tests check Ising energy rules, exact modular arithmetic, and cellular automaton examples. A Markdown test checks a substantial article rewrite. The publication tests cover HTML entities, accessible math labels, missing years, bot pages, incorrect authors, incomplete pagination, duplicate records, and preservation of the last good snapshot.
 
 HTTP tests require permission to open a local port. Tests use synthetic fixtures and make no network requests. `npm run build` renders the content and writes a portable public site to `dist/`.
 
@@ -92,11 +99,13 @@ The source branch is `codex/interactive-site`; the deployment source is `main`. 
 
 ## Content and animation sources
 
-The bio, teaching history, skills, and personal interests were adapted from the [original Google Site](https://sites.google.com/view/aritra-das-phys-ai/page). The portrait was copied from the older local website. That Google Site and the local checkout at `/Users/aritradas/Academic/website/research` were left unchanged. The GitHub website implementation has been replaced, with its history preserved.
+The bio, teaching history, skills, and personal interests were adapted from the [original Google Site](https://sites.google.com/view/aritra-das-phys-ai/page). The current photo and CV were copied unchanged from the user's supplied `quics_bio-2.jpg` and `Curriculum_Vitae.pdf` on 22 October 2026. That Google Site and the local checkout at `/Users/aritradas/Academic/website/research` were left unchanged. The GitHub website implementation has been replaced, with its history preserved.
 
 The project stories describe the six works found on the public Scholar profile on 22 October 2026. Paper links and evidence limits are recorded in [docs/research-sources.md](docs/research-sources.md). No unpublished projects or unverified individual contribution claims were added.
 
 Animations explain concepts rather than reproduce research figures. The modular arithmetic and cellular automata compute exact task outputs. Other scenes are schematic and labelled accordingly. All animations have pause and replay controls. They stop automatic playback for reduced-motion preferences and pause when outside the viewport or when the browser tab is hidden.
+
+The introductory scene replaces the earlier loss landscape with a brain outline, cortical mesh, and traveling neural signals connected visually to an Ising spin system. The brain is an illustration. The spin grid is a 9 × 9, zero-field, ferromagnetic Ising model with periodic boundaries. It uses Metropolis updates with `J = 1`; the slider sets `k_B T / J`. Alignment displays the absolute mean spin. This small stochastic system illustrates collective behavior; it does not simulate brain activity or reproduce a research measurement.
 
 All personal content, project stories, and publications remain readable without JavaScript. JavaScript supplies animations, filters, color-theme controls, and the mobile menu. The site has no runtime dependencies or external font requests.
 

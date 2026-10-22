@@ -12,6 +12,9 @@
     "sync-publications": "python3 scripts/sync_publications.py",
     "build": "npm run render && node scripts/build.mjs",
     "test": "node --test tests/*.test.mjs && python3 -m unittest discover -s tests -p 'test_*.py'",
-    "check": "node --check assets/main.js && node --check assets/landscape.js && node --check assets/project-animations.js && npm run render && npm test && node scripts/build.mjs"
+    "check": "node --check assets/main.js && node --check assets/brain-physics.js && node --check assets/project-animations.js && npm run render && npm test && node scripts/build.mjs"
+  },
+  "devDependencies": {
+    "marked": "17.0.1"
   }
 }
