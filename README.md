@@ -34,7 +34,7 @@ Open <http://127.0.0.1:4173>. Use `PORT=4174 npm start` to select a different po
 | `assets/project-animations.js` | Project animation player and five 12-second scenes                                      |
 | `assets/homogeneous-sphere.js` | HomID's 28-second sphere, stabilizer, orbit, and quotient sequence                      |
 | `assets/projects/homid/`       | User-supplied local PCA spectra figure                                                  |
-| `assets/brain-physics.js`      | Cortical mesh and neural signals, with a temperature-controlled Ising simulation        |
+| `assets/brain-physics.js`      | Retained source for the earlier brain and Ising illustration        |
 | `assets/portrait.jpg`          | User-supplied Brooklyn portrait                                                         |
 | `assets/Curriculum_Vitae.pdf`  | User-supplied current CV, linked from the homepage                                      |
 | `scripts/markdown.mjs`         | Markdown title, introduction, and body parsing                                          |
@@ -109,7 +109,7 @@ The HomID article includes the author's subsequent Markdown rewrite and supplied
 
 Animations explain concepts rather than reproduce research figures. The modular arithmetic and cellular automata compute exact task outputs. Other scenes are schematic and labelled accordingly. All animations have pause and replay controls. They stop automatic playback for reduced-motion preferences and pause when outside the viewport or when the browser tab is hidden.
 
-The introductory scene replaces the earlier loss landscape with a brain outline, cortical mesh, and traveling neural signals connected visually to an Ising spin system. The brain is an illustration. The spin grid is a 9 × 9, zero-field, ferromagnetic Ising model with periodic boundaries. It uses Metropolis updates with `J = 1`; the slider sets `k_B T / J`. Alignment displays the absolute mean spin. This small stochastic system illustrates collective behavior; it does not simulate brain activity or reproduce a research measurement.
+The homepage introduction displays the supplied Brooklyn portrait from `assets/portrait.jpg`. Its responsive layout preserves the full image. The earlier brain and Ising module remains in the source but is no longer loaded by the public pages.
 
 All personal content, project stories, and publications remain readable without JavaScript. JavaScript supplies animations, filters, color-theme controls, and the mobile menu. The site has no runtime dependencies or external font requests.
 

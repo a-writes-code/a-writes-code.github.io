@@ -249,6 +249,24 @@ img {
   gap: 50px;
   padding-block: 58px 58px;
 }
+.hero-portrait {
+  width: min(100%, 420px);
+  margin: 0;
+  justify-self: end;
+  overflow: hidden;
+  border-radius: 4px;
+}
+.hero-portrait img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+@media (max-width: 640px) {
+  .hero-portrait {
+    width: min(100%, 360px);
+    justify-self: center;
+  }
+}
 .hero .eyebrow {
   font-size: 9px;
   letter-spacing: 0.8px;
