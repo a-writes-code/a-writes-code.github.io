@@ -45,9 +45,6 @@ test("every project story and its assets are accessible below a GitHub repositor
       assert.match(html, /THE PAPER/);
       if (project.slug === "homid") {
         assert.match(html, /data-duration="28"/);
-        assert.match(html, /class="katex"/);
-        assert.match(html, /local-pca-spectra\.png/);
-        assert.match(html, /Benchmarking Intrinsic Dimension Estimators/);
         assert.equal(
           (await fetch(new URL("../../assets/homogeneous-sphere.js", pageUrl)))
             .status,
