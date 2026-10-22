@@ -1,9 +1,13 @@
-import { marked } from "marked";
+import { Marked } from "marked";
+import markedKatex from "marked-katex-extension";
+
+const marked = new Marked({ gfm: true });
+marked.use(markedKatex({ throwOnError: false, trust: false }));
 
 // These are trusted, repository-authored documents. Markdown can include HTML
 // for custom figures. No visitor-supplied content is parsed by the website.
 export function parseProjectMarkdown(source) {
-  const tokens = marked.lexer(source.replace(/^\uFEFF/, ""), { gfm: true });
+  const tokens = marked.lexer(source.replace(/^\uFEFF/, ""));
   while (tokens[0]?.type === "space") tokens.shift();
   const heading = tokens.shift();
   if (heading?.type !== "heading" || heading.depth !== 1)

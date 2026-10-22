@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { createSiteServer } from "../scripts/serve.mjs";
 import { parseProjectMarkdown } from "../scripts/markdown.mjs";
+import { rotateAboutAxis, homidFrame } from "../assets/homogeneous-sphere.js";
 import {
   nextAutomatonRow,
   modularRule,
@@ -42,6 +43,25 @@ test("every project story and its assets are accessible below a GitHub repositor
       );
       assert.match(html, /data-animation=/);
       assert.match(html, /THE PAPER/);
+      if (project.slug === "homid") {
+        assert.match(html, /data-duration="28"/);
+        assert.match(html, /class="katex"/);
+        assert.match(html, /local-pca-spectra\.png/);
+        assert.match(html, /Benchmarking Intrinsic Dimension Estimators/);
+        assert.equal(
+          (await fetch(new URL("../../assets/homogeneous-sphere.js", pageUrl)))
+            .status,
+          200,
+        );
+        const font = await fetch(
+          new URL(
+            "../../assets/vendor/katex/fonts/KaTeX_Main-Regular.woff2",
+            pageUrl,
+          ),
+        );
+        assert.equal(font.status, 200);
+        assert.ok((await font.arrayBuffer()).byteLength > 0);
+      }
       const links = [...html.matchAll(/(?:src|href)="(\.\.[^"]+)"/g)].map(
         (match) => match[1],
       );
@@ -55,6 +75,38 @@ test("every project story and its assets are accessible below a GitHub repositor
   } finally {
     await new Promise((resolve) => server.close(resolve));
   }
+});
+
+test("math in the editable article renders at build time and stays literal inside code", () => {
+  const article = parseProjectMarkdown(
+    "# Groups\n\nThe sphere $S^2$.\n\n$$\n\\frac{\\mathrm{SO}(3)}{\\mathrm{SO}(2)} \\cong S^2\n$$\n\n`$not_math$`",
+  );
+  assert.match(article.introHtml, /class="katex"/);
+  assert.match(article.bodyHtml, /class="katex-display"/);
+  assert.match(article.bodyHtml, /<math/);
+  assert.match(article.bodyHtml, /<code>\$not_math\$<\/code>/);
+});
+
+test("the HomID sequence uses rigid rotations and the SO(2) stabilizer fixes the north pole", () => {
+  for (const angle of [0, 0.4, Math.PI, 2 * Math.PI]) {
+    const rotated = rotateAboutAxis([0, 0, 1], [0, 0, 1], angle);
+    assert.ok(
+      rotated.every((value, i) => Math.abs(value - [0, 0, 1][i]) < 1e-12),
+    );
+    const arbitrary = rotateAboutAxis([0.6, 0, 0.8], [1, 2, 3], angle);
+    assert.ok(Math.abs(Math.hypot(...arbitrary) - 1) < 1e-12);
+  }
+  assert.ok(homidFrame(0).sphereOpacity > 0.9);
+  assert.ok(homidFrame(5).sphereOpacity < 0.05);
+  assert.deepEqual(homidFrame(10).point, [0, 0, 1]);
+  assert.equal(homidFrame(12).so2Curve, 0);
+  const final = homidFrame(25);
+  assert.ok(Math.abs(Math.hypot(...final.point) - 1) < 1e-12);
+  assert.ok(
+    final.point[2] < 0.5,
+    "The SO(3) rotation must move the north-pole vector",
+  );
+  assert.equal(final.quotient, 1);
 });
 
 test("a freely rewritten Markdown article supports headings, links, lists, figures, and code", () => {

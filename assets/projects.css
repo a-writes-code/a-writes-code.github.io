@@ -87,6 +87,41 @@
   font-size: 9px;
   line-height: 1.7;
 }
+.animation-timeline {
+  margin-top: 14px;
+  width: 100%;
+}
+.animation-timeline input {
+  flex: 1;
+}
+.story-body figure.research-figure {
+  width: min(1000px, calc(100vw - 80px));
+  max-width: none;
+  margin: 32px 0 32px 50%;
+  transform: translateX(-50%);
+}
+.research-figure a {
+  display: block;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  overflow: hidden;
+  background: white;
+}
+.research-figure img {
+  display: block;
+  width: 100%;
+}
+.story-body .research-figure figcaption {
+  max-width: 720px;
+  margin: 14px auto 0;
+  line-height: 1.8;
+}
+.katex-display {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 4px 0;
+}
 .project-card-copy {
   padding: 24px 25px 22px;
 }
@@ -646,6 +681,9 @@
   }
 }
 @media (max-width: 640px) {
+  .story-body figure.research-figure {
+    width: calc(100vw - 40px);
+  }
   .header-inner {
     height: 70px;
   }

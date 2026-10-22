@@ -1,5 +1,6 @@
 // These are explanatory illustrations. Only the arithmetic and cellular automata
 // compute exact task outputs; no animation presents synthetic research measurements.
+import { drawHomogeneousSphere } from "./homogeneous-sphere.js";
 export function nextAutomatonRow(row, rule) {
   return row.map((_, i) => {
     const left = row[(i - 1 + row.length) % row.length];
@@ -21,12 +22,6 @@ const automata = new Map(
     return [rule, rows];
   }),
 );
-const sphere = Array.from({ length: 260 }, (_, i) => {
-  const z = 1 - (2 * (i + 0.5)) / 260;
-  const theta = i * Math.PI * (3 - Math.sqrt(5));
-  const r = Math.sqrt(1 - z * z);
-  return [r * Math.cos(theta), r * Math.sin(theta), z];
-});
 const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
 const smooth = (x) => {
   const t = clamp(x);
@@ -67,31 +62,6 @@ function box(ctx, x, y, w, h, color, fill) {
   ctx.strokeStyle = color;
   ctx.lineWidth = 1;
   ctx.stroke();
-}
-
-function manifold(ctx, t, p) {
-  const stretch = 1 + 0.7 * (0.5 - 0.5 * Math.cos(t * Math.PI * 2));
-  const rotation = t * Math.PI * 2;
-  const points = sphere
-    .map(([x, y, z]) => {
-      const u = x * Math.cos(rotation) + z * Math.sin(rotation);
-      const depth = -x * Math.sin(rotation) + z * Math.cos(rotation);
-      return {
-        x: 360 + u * 125 * stretch,
-        y: 165 + y * 105 + depth * 24,
-        depth,
-      };
-    })
-    .sort((a, b) => a.depth - b.depth);
-  ctx.save();
-  for (const point of points) {
-    ctx.globalAlpha = 0.25 + (point.depth + 1) * 0.35;
-    dot(ctx, point.x, point.y, 2.1 + (point.depth + 1) * 0.7, p.ink);
-  }
-  ctx.restore();
-  text(ctx, "2 intrinsic dimensions", 360, 300, 18, p.ink, "center");
-  text(ctx, `stretch ×${stretch.toFixed(1)}`, 37, 35, 15, p.muted);
-  text(ctx, "3 ambient coordinates", 685, 35, 14, p.muted, "right");
 }
 
 function context(ctx, t, p) {
@@ -307,7 +277,8 @@ function holes(ctx, t, p) {
 }
 
 const scenes = {
-  manifold,
+  manifold: (ctx, t, palette, seconds) =>
+    drawHomogeneousSphere(ctx, seconds, palette),
   context,
   polynomial,
   automata: automaton,
@@ -367,13 +338,22 @@ export function initProjectAnimations() {
     const scale = Math.min(width / 720, height / 340);
     ctx.translate((width - 720 * scale) / 2, (height - 340 * scale) / 2);
     ctx.scale(scale, scale);
-    scenes[item.figure.dataset.animation](ctx, item.time / 12, palette());
-    const stage = Math.min(2, Math.floor(item.time / 4));
+    scenes[item.figure.dataset.animation](
+      ctx,
+      item.time / item.duration,
+      palette(),
+      item.time,
+    );
+    const stage = Math.max(
+      0,
+      item.stageTimes.findLastIndex((time) => time <= item.time),
+    );
     if (stage !== item.stage) {
       item.caption.textContent = item.stages[stage];
       item.stage = stage;
     }
-    item.clock.textContent = `${String(Math.floor(item.time)).padStart(2, "0")} / 12s`;
+    item.clock.textContent = `${String(Math.floor(item.time)).padStart(2, "0")} / ${item.duration}s`;
+    if (item.seek) item.seek.value = item.time.toFixed(1);
   }
 
   function schedule() {
@@ -399,7 +379,7 @@ export function initProjectAnimations() {
     lastTime = time;
     for (const item of items) {
       if (!item.running || !item.visible) continue;
-      item.time = (item.time + elapsed) % 12;
+      item.time = (item.time + elapsed) % item.duration;
       draw(item);
     }
     schedule();
@@ -425,12 +405,21 @@ export function initProjectAnimations() {
       caption: figure.querySelector(".animation-stage"),
       clock: figure.querySelector(".animation-time"),
       stages: JSON.parse(figure.dataset.stages),
+      stageTimes: JSON.parse(figure.dataset.stageTimes),
+      duration: Number(figure.dataset.duration),
+      seek: figure.querySelector(".animation-seek"),
       time: 0,
       stage: -1,
       visible: false,
       running: !reduced.matches,
     };
     items.push(item);
+    item.seek?.addEventListener("input", () => {
+      item.time = Number(item.seek.value);
+      item.running = false;
+      updateButton(item);
+      draw(item);
+    });
     item.button.addEventListener("click", () => {
       item.running = !item.running;
       updateButton(item);

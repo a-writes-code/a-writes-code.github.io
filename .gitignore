@@ -1,5 +1,6 @@
 .DS_Store
 node_modules/
+/assets/vendor/katex/
 dist/
 artifacts/
 *.log

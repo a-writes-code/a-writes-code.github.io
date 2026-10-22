@@ -7,14 +7,17 @@
     "node": ">=22"
   },
   "scripts": {
+    "prestart": "npm run render",
     "start": "node scripts/serve.mjs",
     "render": "node scripts/render-content.mjs",
     "sync-publications": "python3 scripts/sync_publications.py",
     "build": "npm run render && node scripts/build.mjs",
     "test": "node --test tests/*.test.mjs && python3 -m unittest discover -s tests -p 'test_*.py'",
-    "check": "node --check assets/main.js && node --check assets/brain-physics.js && node --check assets/project-animations.js && npm run render && npm test && node scripts/build.mjs"
+    "check": "node --check assets/main.js && node --check assets/brain-physics.js && node --check assets/project-animations.js && node --check assets/homogeneous-sphere.js && npm run render && npm test && node scripts/build.mjs"
   },
   "devDependencies": {
-    "marked": "17.0.1"
+    "katex": "0.18.10",
+    "marked": "17.0.1",
+    "marked-katex-extension": "5.1.13"
   }
 }

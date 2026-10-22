@@ -1,8 +1,17 @@
-import { readFile, writeFile, mkdir } from "node:fs/promises";
+import { readFile, writeFile, mkdir, cp } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { parseProjectMarkdown } from "./markdown.mjs";
 
 const root = fileURLToPath(new URL("../", import.meta.url));
+// Self-host the build-time math renderer's CSS and fonts. No CDN is needed.
+const mathAssets = `${root}assets/vendor/katex`;
+await mkdir(mathAssets, { recursive: true });
+for (const file of ["katex.min.css", "fonts"]) {
+  await cp(`${root}node_modules/katex/dist/${file}`, `${mathAssets}/${file}`, {
+    recursive: true,
+  });
+}
+await cp(`${root}node_modules/katex/LICENSE`, `${mathAssets}/LICENSE`);
 const readJson = async (path) =>
   JSON.parse(await readFile(`${root}${path}`, "utf8"));
 const config = await readJson("content/site.json");
@@ -29,10 +38,11 @@ const externalLink = (href, text, className = "text-link") =>
 const byId = new Map(projects.map((project) => [project.scholarId, project]));
 
 function animation(project, compact = false) {
-  return `<figure class="project-animation ${compact ? "compact-animation" : "story-animation"}" data-animation="${project.visual}" data-stages="${escape(JSON.stringify(project.stages))}">
-    <div class="animation-topline"><span class="small-mono">${escape(project.visual === "automata" ? "A RULE IN MOTION" : "THE IDEA IN MOTION")}</span><span class="animation-time small-mono" aria-hidden="true">00 / 12s</span></div>
+  const duration = project.duration ?? 12;
+  return `<figure class="project-animation ${compact ? "compact-animation" : "story-animation"}" data-animation="${project.visual}" data-duration="${duration}" data-stage-times="${escape(JSON.stringify(project.stageTimes ?? project.stages.map((_, i) => (i * duration) / project.stages.length)))}" data-stages="${escape(JSON.stringify(project.stages))}">
+    <div class="animation-topline"><span class="small-mono">${escape(project.visual === "automata" ? "A RULE IN MOTION" : "THE IDEA IN MOTION")}</span><span class="animation-time small-mono" aria-hidden="true">00 / ${duration}s</span></div>
     <canvas width="720" height="400" role="img" aria-label="${escape(project.animationLabel)}"></canvas>
-    <figcaption><p class="animation-stage">${escape(project.stages[0])}</p><div class="animation-bottom"><span class="animation-kind">${project.visual === "automata" ? "Cellular automaton" : "Conceptual animation"}</span><div class="animation-buttons js-only"><button type="button" class="animation-play icon-button" aria-label="Pause animation: ${escape(project.shortTitle)}" data-title="${escape(project.shortTitle)}"><span aria-hidden="true">Ⅱ</span></button><button type="button" class="animation-replay icon-button" aria-label="Replay animation: ${escape(project.shortTitle)}"><span aria-hidden="true">↺</span></button></div></div>${compact ? "" : `<p class="animation-note">${escape(project.animationNote)}</p>`}<noscript><p class="animation-note">Enable JavaScript to play this animation. The explanation below remains available.</p></noscript></figcaption>
+    <figcaption><p class="animation-stage">${escape(project.stages[0])}</p><div class="animation-bottom"><span class="animation-kind">${project.visual === "automata" ? "Cellular automaton" : "Conceptual animation"}</span><div class="animation-buttons js-only"><button type="button" class="animation-play icon-button" aria-label="Pause animation: ${escape(project.shortTitle)}" data-title="${escape(project.shortTitle)}"><span aria-hidden="true">Ⅱ</span></button><button type="button" class="animation-replay icon-button" aria-label="Replay animation: ${escape(project.shortTitle)}"><span aria-hidden="true">↺</span></button></div></div>${project.visual === "manifold" ? `<label class="animation-timeline js-only"><span class="sr-only">Animation time: ${escape(project.shortTitle)}</span><input type="range" class="animation-seek" min="0" max="${duration}" step="0.1" value="0" aria-label="Animation time: ${escape(project.shortTitle)}"></label>` : ""}${compact ? "" : `<p class="animation-note">${escape(project.animationNote)}</p>`}<noscript><p class="animation-note">Enable JavaScript to play this animation. The explanation below remains available.</p></noscript></figcaption>
   </figure>`;
 }
 
@@ -95,7 +105,7 @@ function header() {
 function storyPage(project, index) {
   const next = projects[(index + 1) % projects.length];
   return `<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light dark"><meta name="description" content="${escape(project.summary)}"><meta property="og:title" content="${escape(project.title)} — Aritra Das"><meta property="og:description" content="${escape(project.summary)}"><meta property="og:type" content="article"><meta name="theme-color" content="#f7f6f0"><title>${escape(project.title)} — Aritra Das</title><link rel="canonical" href="${config.siteUrl}/projects/${project.slug}/"><link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../../assets/style.css"><link rel="stylesheet" href="../../assets/projects.css"><script>try { const t = localStorage.getItem('aritra-theme'); if(t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch {}</script><script type="module" src="../../assets/main.js"></script></head>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light dark"><meta name="description" content="${escape(project.summary)}"><meta property="og:title" content="${escape(project.title)} — Aritra Das"><meta property="og:description" content="${escape(project.summary)}"><meta property="og:type" content="article"><meta name="theme-color" content="#f7f6f0"><title>${escape(project.title)} — Aritra Das</title><link rel="canonical" href="${config.siteUrl}/projects/${project.slug}/"><link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../../assets/style.css"><link rel="stylesheet" href="../../assets/projects.css"><link rel="stylesheet" href="../../assets/vendor/katex/katex.min.css"><script>try { const t = localStorage.getItem('aritra-theme'); if(t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch {}</script><script type="module" src="../../assets/main.js"></script></head>
 <body class="story-page"><a class="skip-link" href="#main">Skip to content</a>${header()}<main id="main"><article class="container story-article"><a class="story-back text-link" href="../../#projects"><span aria-hidden="true">←</span> All project stories</a><div class="story-heading"><div><p class="eyebrow">${escape(project.kicker)} · ${escape(project.year)}</p><h1>${project.titleHtml}</h1><div class="story-lede">${project.introHtml}</div><p class="story-authors">A project with ${escape(
     project.authors
       .split(", ")

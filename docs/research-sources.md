@@ -34,3 +34,7 @@ Queries included the Scholar profile ID, “Aritra Das Gromov grokking,” “Ar
 ## Animation boundaries
 
 All animation design choices are INFERENCE or explanatory construction. They are not additional paper results. The modular arithmetic and cellular automaton states are computed exactly. The other animations are conceptual diagrams. Their captions say what they represent. No animation uses fabricated measured accuracy, citation counts, estimator output, or quantum time-evolution data.
+
+The author rewrote `content/projects/homid.md` in commit `88f004c` and supplied the local PCA figure on 22 October 2026. That text is retained. The figure is copied unchanged to `assets/projects/homid/local-pca-spectra.png`; no data were extracted or recomputed. The added caption describes the visible panels, legend, and logarithmic component-index axis.
+
+The replacement HomID animation follows the author's explicit sequence. SO(2) is embedded as rotations about the chosen north-pole axis. All points and the direction vector undergo actual rigid rotations computed with Rodrigues' formula. SO(3)/SO(2) is shown as a homogeneous space equivalent to S², not as a quotient group. The selected endpoint is an illustrative representative; the animation does not sample the benchmark or estimate a dimension.

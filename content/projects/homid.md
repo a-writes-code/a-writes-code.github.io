@@ -11,13 +11,26 @@ It is obvious that estimating intrinsic dimensions from finite samples is import
 
 My collaborators and I developed HomID for the same. It consists of embeddings of homogenous spaces, which are locally anisotropic. But because they are homogeneous spaces, the local geometry and density is the same *everywhere*. And even in that case, we observed that the tested intrinsic dimension estimators performed quite poorly. More importantly, the failure mode is qualitatively distinct from just squeezing otherwise isotropic manifolds. 
 
-[AD : insert the picture on lPCA]
+<figure class="research-figure">
+  <a href="../../assets/projects/homid/local-pca-spectra.png" target="_blank" rel="noopener noreferrer" aria-label="Open the local PCA spectra figure at full size">
+    <img src="../../assets/projects/homid/local-pca-spectra.png" width="1454" height="512" loading="lazy" alt="Three local PCA eigenvalue spectra: undistorted sphere, distorted sphere, and a Grassmannian projection embedding. Curves show relative eigenvalues for several neighborhood fractions k/N; component index uses a logarithmic scale.">
+  </a>
+  <figcaption>Relative eigenvalues from local principal component analysis (PCA) for an undistorted sphere, a distorted sphere, and a Grassmannian projection embedding. Colors indicate the neighborhood fraction k/N. The component-index axis is logarithmic. The spectra respond differently to neighborhood size across the three settings. Select the figure to open it at full size.</figcaption>
+</figure>
 
 By the way, if you're curious about *how* these embeddings are generated, the general recipe is actually quite simple. It's based on the [Gilmore](https://journals.aps.org/rmp/abstract/10.1103/RevModPhys.62.867)-[Perelomov](https://link.springer.com/book/10.1007/978-3-642-61629-7) coherent state method.
 The mathematical description sounds complicated, but the idea is simple (see the accompanying animation). Recall that homogenous spaces are quotient spaces of the form $G/H$, where $G$ is a group and $H$ is a sub-group. If you're unfamiliar with groups and sub-groups, think of these as some class of *actions* (based on symmetries). A sub-group is then a sub-class of the actions. An example would be arbitrary translations, a subclass would be translation in fixed step sizes.
 
 So the coherent state method suggests that you (1) take a *state* which is invariant under the subgroup $H$ and (2) apply $G$ on this state. The corresponding state that you get after (1) and (2) is a representation of the manifold $G/H$.
 
+
+## The sphere as a homogeneous space
+
+The animation starts with $S^2$. Choose the unit vector at its north pole. Rotations about this axis form $\mathrm{SO}(2)$ and leave the vector unchanged. Rotations in $\mathrm{SO}(3)$ can carry it to any other point on the sphere. Rotations that differ by a turn about the original axis give the same point. Identifying these rotations gives the homogeneous space
+
+$$
+\frac{\mathrm{SO}(3)}{\mathrm{SO}(2)} \cong S^2.
+$$
 
 > **The takeaway**
 >

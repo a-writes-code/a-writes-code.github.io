@@ -6,7 +6,7 @@ The live site is <https://a-writes-code.github.io/>. The repository is `a-writes
 
 ## Preview
 
-Use Node.js 22 or newer and Python 3.9 or newer. The pinned `marked` package parses Markdown during the build. The public website has no runtime packages.
+Use Node.js 22 or newer and Python 3.9 or newer. Pinned build packages parse Markdown and render equations with KaTeX. CSS and math fonts are served by this site. The public website has no runtime packages.
 
 ```sh
 cd /Users/aritradas/Academic/Random/personal-website
@@ -31,7 +31,9 @@ Open <http://127.0.0.1:4173>. Use `PORT=4174 npm start` to select a different po
 | `assets/style.css`             | Original layout, color themes, and common components                                    |
 | `assets/projects.css`          | Project cards, article layout, publication list, and navigation additions               |
 | `assets/main.js`               | Navigation, theme, publication search, and other page controls                          |
-| `assets/project-animations.js` | The six 12-second explanatory animations                                                |
+| `assets/project-animations.js` | Project animation player and five 12-second scenes                                      |
+| `assets/homogeneous-sphere.js` | HomID's 28-second sphere, stabilizer, orbit, and quotient sequence                      |
+| `assets/projects/homid/`       | User-supplied local PCA spectra figure                                                  |
 | `assets/brain-physics.js`      | Cortical mesh and neural signals, with a temperature-controlled Ising simulation        |
 | `assets/portrait.jpg`          | User-supplied Brooklyn portrait                                                         |
 | `assets/Curriculum_Vitae.pdf`  | User-supplied current CV, linked from the homepage                                      |
@@ -55,7 +57,7 @@ This regenerates the articles and homepage blocks. Keep the `PROJECTS` and `PUBL
 npm run check
 ```
 
-The command checks JavaScript syntax, renders the content, runs Node and Python tests, and builds `dist/`. The expected result is seven passing Node tests, five passing Python tests, and `Built static website in dist/`.
+The command checks JavaScript syntax, renders the content, runs Node and Python tests, and builds `dist/`. The expected result is nine passing Node tests, five passing Python tests, and `Built static website in dist/`.
 
 The HTTP tests serve the homepage and all project articles below a repository subpath. They check local assets, navigation, article output against its Markdown source, missing files, and path traversal protection. Numerical tests check Ising energy rules, exact modular arithmetic, and cellular automaton examples. A Markdown test checks a substantial article rewrite. The publication tests cover HTML entities, accessible math labels, missing years, bot pages, incorrect authors, incomplete pagination, duplicate records, and preservation of the last good snapshot.
 
@@ -102,6 +104,8 @@ The source branch is `codex/interactive-site`; the deployment source is `main`. 
 The bio, teaching history, skills, and personal interests were adapted from the [original Google Site](https://sites.google.com/view/aritra-das-phys-ai/page). The current photo and CV were copied unchanged from the user's supplied `quics_bio-2.jpg` and `Curriculum_Vitae.pdf` on 22 October 2026. That Google Site and the local checkout at `/Users/aritradas/Academic/website/research` were left unchanged. The GitHub website implementation has been replaced, with its history preserved.
 
 The project stories describe the six works found on the public Scholar profile on 22 October 2026. Paper links and evidence limits are recorded in [docs/research-sources.md](docs/research-sources.md). No unpublished projects or unverified individual contribution claims were added.
+
+The HomID article includes the author's subsequent Markdown rewrite and supplied local PCA figure. Its animation follows the author's requested sphere-and-rotation sequence. The lit sphere fades, a north-pole vector stays fixed under SO(2), SO(3) moves it to another sphere point, and the labels form SO(3)/SO(2) ≅ S². A timeline supports seeking and pauses playback while inspecting a step. The module uses rigid rotations, not a stretching sphere.
 
 Animations explain concepts rather than reproduce research figures. The modular arithmetic and cellular automata compute exact task outputs. Other scenes are schematic and labelled accordingly. All animations have pause and replay controls. They stop automatic playback for reduced-motion preferences and pause when outside the viewport or when the browser tab is hidden.
 

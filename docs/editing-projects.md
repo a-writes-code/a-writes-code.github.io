@@ -38,9 +38,23 @@ Write paragraphs with a blank line between them. Use _italics_ or **bold**.
 Add as much text as you need.
 ```
 
-Headings, lists, links, images, block quotes, code blocks, and tables use standard Markdown. The source file previews on GitHub. Relative image URLs are resolved from the published page at `projects/<slug>/`; use `../../assets/filename.png` for a file uploaded to `assets/`. Raw HTML is supported for custom figures. LaTeX formulas do not currently render as equations.
+Headings, lists, links, images, block quotes, code blocks, and tables use standard Markdown. The source file previews on GitHub. Relative image URLs are resolved from the published page at `projects/<slug>/`; use `../../assets/filename.png` for a file uploaded to `assets/`. Raw HTML is supported for custom figures. Use `$G/H$` for an inline equation. Use `$$` on separate lines for a displayed equation:
 
-The homepage card title and summary, paper metadata, and animation captions are in `content/projects.json`. The article title and body come only from the Markdown file. The animation itself is in `assets/project-animations.js`.
+```latex
+$$
+\frac{\mathrm{SO}(3)}{\mathrm{SO}(2)} \cong S^2
+$$
+```
+
+Equations render during the build with self-hosted KaTeX fonts. Invalid formulas show their source in red rather than prevent the rest of the article from publishing.
+
+The homepage card title and summary, paper metadata, animation timing, and captions are in `content/projects.json`. The article title and body come only from the Markdown file. Most animations are in `assets/project-animations.js`; the HomID rotation sequence is in `assets/homogeneous-sphere.js`.
+
+## If an edit does not appear
+
+A saved Markdown edit must finish a deployment before it appears on the public website. Open [Website and Scholar refresh](https://github.com/a-writes-code/a-writes-code.github.io/actions/workflows/site.yml) and look for a run after your commit. Wait for both **build** and **deploy** to finish. If no run starts, select **Run workflow**, choose `main`, and run it manually. Then refresh the website. A hard refresh can clear an older browser copy.
+
+The workflow uses the latest `main` source when it starts. Scheduled publication refreshes preserve the Markdown files. Do not copy old generated HTML over a newer article.
 
 Do not edit `projects/*/index.html` or the generated sections in `index.html`. Builds regenerate those files from the source. Scholar refreshes update publication data and preserve your Markdown text.
 

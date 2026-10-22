@@ -13,12 +13,26 @@
     "paperUrl": "https://arxiv.org/abs/2510.01335",
     "paperType": "Preprint",
     "venue": "arXiv:2510.01335",
-    "animationLabel": "A rotating point cloud on a surface stretches without changing its two intrinsic dimensions.",
-    "animationNote": "Illustrative two-dimensional surface; not a benchmark sample or measured estimator output.",
+    "animationLabel": "A light sphere S² fades. A north-pole arrow stays fixed under SO(2) rotations around its axis. An SO(3) rotation carries it to another point. The groups combine into SO(3) / SO(2) ≅ S².",
+    "animationNote": "SO(2) is the subgroup of SO(3) that fixes the chosen north-pole vector. The quotient is a homogeneous space, not a quotient group.",
     "stages": [
-      "A surface can have two intrinsic dimensions in 3D.",
-      "Stretching changes the embedding.",
-      "The intrinsic dimension is still two."
+      "Begin with the sphere S².",
+      "Dim the sphere to keep its geometry as a guide.",
+      "Choose a north-pole direction.",
+      "SO(2): turn around the axis. The arrow stays fixed.",
+      "SO(3): move the arrow to any point on the sphere.",
+      "Identify rotations that differ only by an SO(2) turn.",
+      "SO(3) / SO(2) ≅ S²."
+    ],
+    "duration": 28,
+    "stageTimes": [
+      0,
+      2,
+      4,
+      6,
+      12,
+      20,
+      23
     ]
   },
   {
