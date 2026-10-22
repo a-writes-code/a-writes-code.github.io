@@ -1,4 +1,5 @@
 import { initLandscape } from "./landscape.js";
+import { initProjectAnimations } from "./project-animations.js";
 
 document.documentElement.classList.add("js");
 document.querySelector("#year").textContent = new Date().getFullYear();
@@ -56,7 +57,7 @@ document.addEventListener("keydown", (event) => {
     menuButton.focus();
   }
 });
-matchMedia("(min-width: 641px)").addEventListener("change", (event) => {
+matchMedia("(min-width: 961px)").addEventListener("change", (event) => {
   if (event.matches) closeMenu();
 });
 
@@ -85,7 +86,7 @@ filters.forEach((button) =>
 let copyTimeout;
 document
   .querySelector(".copy-email")
-  .addEventListener("click", async (event) => {
+  ?.addEventListener("click", async (event) => {
     const button = event.currentTarget;
     const status = document.querySelector(".copy-status");
     clearTimeout(copyTimeout);
@@ -119,3 +120,24 @@ document
   .forEach((section) => sectionObserver.observe(section));
 
 initLandscape();
+initProjectAnimations();
+
+const publicationSearch = document.querySelector("#publication-search");
+const publicationYear = document.querySelector("#publication-year");
+function filterPublications() {
+  const query = publicationSearch.value.trim().toLocaleLowerCase();
+  const year = publicationYear.value;
+  let count = 0;
+  document.querySelectorAll(".publication-item").forEach((item) => {
+    const visible =
+      (year === "all" || item.dataset.year === year) &&
+      item.textContent.toLocaleLowerCase().includes(query);
+    item.hidden = !visible;
+    if (visible) count++;
+  });
+  document.querySelector("#publication-count").textContent =
+    `${count} work${count === 1 ? "" : "s"}`;
+  document.querySelector("#publication-empty").hidden = count > 0;
+}
+publicationSearch?.addEventListener("input", filterPublications);
+publicationYear?.addEventListener("change", filterPublications);

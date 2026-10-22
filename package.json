@@ -8,8 +8,10 @@
   },
   "scripts": {
     "start": "node scripts/serve.mjs",
-    "build": "node scripts/build.mjs",
-    "test": "node --test tests/*.test.mjs",
-    "check": "node --check assets/main.js && node --check assets/landscape.js && npm test && npm run build"
+    "render": "node scripts/render-content.mjs",
+    "sync-publications": "python3 scripts/sync_publications.py",
+    "build": "npm run render && node scripts/build.mjs",
+    "test": "node --test tests/*.test.mjs && python3 -m unittest discover -s tests -p 'test_*.py'",
+    "check": "node --check assets/main.js && node --check assets/landscape.js && node --check assets/project-animations.js && npm run render && npm test && node scripts/build.mjs"
   }
 }

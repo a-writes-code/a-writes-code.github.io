@@ -10,6 +10,7 @@ const types = {
   ".js": "text/javascript; charset=utf-8",
   ".svg": "image/svg+xml",
   ".jpg": "image/jpeg",
+  ".json": "application/json; charset=utf-8",
 };
 
 export function createSiteServer({ directory = root, basePath = "/" } = {}) {

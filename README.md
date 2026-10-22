@@ -1,32 +1,46 @@
 # Aritra Das — personal website
 
-A personal website for research at the intersection of physics and AI. It brings the content from Aritra’s Google Site into a responsive website for GitHub Pages. Visitors can explore a loss landscape, filter research interests, expand course history, switch color themes, and copy the contact email.
+A research website at the intersection of physics and AI. It contains six project stories with short explanatory animations, a searchable publication list from Google Scholar, and sections for research interests, teaching, skills, and life outside work.
+
+The live site is <https://a-writes-code.github.io/>. The repository is `a-writes-code/a-writes-code.github.io`.
 
 ## Preview
 
-Use Node.js 22 or newer. No package installation is required.
+Use Node.js 22 or newer and Python 3.9 or newer. No package installation is required.
 
 ```sh
 cd /Users/aritradas/Academic/Random/personal-website
 npm start
 ```
 
-Open <http://127.0.0.1:4173>. To choose another port, use `PORT=4174 npm start`. Press Ctrl+C to stop the server.
+Open <http://127.0.0.1:4173>. Use `PORT=4174 npm start` to select a different port. Press Ctrl+C to stop the server. Generated HTML is committed, so the preview also works before running a build.
 
 ## Edit
 
-| File                          | Purpose                                                            |
-| ----------------------------- | ------------------------------------------------------------------ |
-| `index.html`                  | All personal content, links, research topics, and teaching history |
-| `assets/style.css`            | Layout, palette, typography, and responsive breakpoints            |
-| `assets/main.js`              | Theme, navigation, research filters, and email copy                |
-| `assets/landscape.js`         | Loss function, gradient descent, and canvas drawing                |
-| `assets/portrait.jpg`         | Profile photograph                                                 |
-| `scripts/serve.mjs`           | Local preview server                                               |
-| `scripts/build.mjs`           | Copies the public site into `dist/`                                |
-| `tests/site.test.mjs`         | Public HTTP and numerical smoke tests                              |
+| File                           | Purpose                                                                                    |
+| ------------------------------ | ------------------------------------------------------------------------------------------ |
+| `content/projects.json`        | Project titles, summaries, article sections, paper links, glossary, and animation captions |
+| `content/site.json`            | Author name, Scholar profile ID, and public site URL                                       |
+| `data/publications.json`       | Last successful Scholar snapshot; maintained by the updater                                |
+| `index.html`                   | Homepage layout and personal information outside the generated blocks                      |
+| `projects/*/index.html`        | Generated project articles; edit `content/projects.json` instead                           |
+| `assets/style.css`             | Original layout, color themes, and common components                                       |
+| `assets/projects.css`          | Project cards, article layout, publication list, and navigation additions                  |
+| `assets/main.js`               | Navigation, theme, publication search, and other page controls                             |
+| `assets/project-animations.js` | The six 12-second explanatory animations                                                   |
+| `assets/landscape.js`          | The original interactive loss landscape                                                    |
+| `scripts/render-content.mjs`   | Renders project pages and the two generated homepage sections                              |
+| `scripts/sync_publications.py` | Fetches and validates the public Scholar profile                                           |
+| `.github/workflows/site.yml`   | Weekly refresh, validation, build, and Pages deployment                                    |
+| `docs/research-sources.md`     | Paper inventory, scientific evidence, and source limits                                    |
 
-Edit personal content in `index.html`. Keep the existing element IDs when changing text. Research filters use each card’s `data-topics` attribute. The loss function and its analytic gradient must agree. The photograph is cropped with CSS; the source image is unchanged.
+After changing project content, run:
+
+```sh
+npm run check
+```
+
+This regenerates the articles and homepage blocks. Keep the `PROJECTS` and `PUBLICATIONS` comment markers in `index.html`. Content inside those markers is generated. A project's `scholarId` connects its story with the corresponding publication.
 
 ## Validate and build
 
@@ -34,42 +48,58 @@ Edit personal content in `index.html`. Keep the existing element IDs when changi
 npm run check
 ```
 
-This checks JavaScript syntax, runs the smoke tests, and builds `dist/`. The expected result is four passing tests and `Built static website in dist/`. The HTTP tests need permission to open a local port.
+The command checks JavaScript syntax, renders the content, runs Node and Python tests, and builds `dist/`. The expected result is six passing Node tests, five passing Python tests, and `Built static website in dist/`.
 
-The tests fetch the page and its local assets from both `/` and `/personal-website/`. They check internal navigation, missing files, and path traversal protection. The numerical check compares the analytic gradient with finite differences. It also checks that descent lowers loss at the slider’s minimum, default, and maximum rates.
+The HTTP tests serve the homepage and all project articles below a repository subpath. They check local assets, navigation, missing files, and path traversal protection. Numerical tests check the gradient descent, exact modular arithmetic, and cellular automaton examples. The publication tests cover HTML entities, accessible math labels, missing years, bot pages, incorrect authors, incomplete pagination, duplicate records, and preservation of the last good snapshot.
 
-The source has no third-party runtime dependencies or external font requests. All personal content remains readable without JavaScript. JavaScript is required for the canvas, filters, theme control, mobile menu, and clipboard button. The standard navigation and native expandable sections work without it.
+HTTP tests require permission to open a local port. Tests use synthetic fixtures and make no network requests. `npm run build` renders the content and writes a portable public site to `dist/`.
 
-## GitHub Pages
+## Publication updates
 
-The remote is the existing repository, `a-writes-code/a-writes-code.github.io`. This checkout uses a separate `codex/interactive-site` branch based on its `main` history. The previous Hugo site remains in Git history and in the original local checkout at `/Users/aritradas/Academic/website/research`.
+The workflow refreshes Scholar every Monday, on updates to `main`, and when started manually from the Actions tab. It runs on GitHub, so this computer does not need to stay on. No paid API, personal access token, or additional repository secret is needed.
 
-After GitHub sign-in, publish the branch:
+To refresh locally:
 
 ```sh
-gh auth login
-git push -u origin codex/interactive-site
+npm run sync-publications
+npm run check
 ```
 
-Review the site before merging this branch into `main`. In the repository’s **Settings → Pages**, select **Deploy from a branch**, choose **main**, and use **/ (root)**. The `.nojekyll` file tells Pages to serve the static files directly. No custom Actions workflow or extra OAuth workflow permission is required. The expected public URL is <https://a-writes-code.github.io/>. That URL is the deployment target; a local build does not prove that it is live.
+The updater checks the exact author name and Scholar profile ID. It reads all available profile pages and keeps record IDs stable. It writes the cache atomically after validation. If Google returns a bot page, rejects the request, omits existing records, or returns an incomplete response, the updater exits without replacing the existing cache.
 
-Use the repository’s Actions tab to inspect the Pages deployment status. Run `npm run check` before pushing updates. GitHub Pages serves the source files directly; `dist/` is an optional portable copy for other static hosts. Links use relative paths, so the same built files can also be hosted below a repository subpath.
+The scheduled workflow can still build and publish from that previous snapshot. It records a warning in Actions. The date shown on the website remains the date of the last successful sync. A successful refresh updates the cache and generated HTML, commits them to `main`, and deploys the result within the same run.
 
-## Content and assets
+If works are deliberately deleted or merged on Scholar, review the profile before allowing their removal:
 
-Personal information was adapted from these pages on 22 October 2026:
+```sh
+python3 scripts/sync_publications.py --allow-removals
+npm run check
+```
 
-- [Welcome](https://sites.google.com/view/aritra-das-phys-ai/page)
-- [Research](https://sites.google.com/view/aritra-das-phys-ai/research)
-- [Teaching](https://sites.google.com/view/aritra-das-phys-ai/teaching)
-- [Skills](https://sites.google.com/view/aritra-das-phys-ai/skills)
-- [Off the clock](https://sites.google.com/view/aritra-das-phys-ai/off-the)
-- [Contact](https://sites.google.com/view/aritra-das-phys-ai/contact)
+The displayed publication metadata follows Scholar. Missing years are supplied from the matching project's linked paper and marked with an asterisk. Google can block automated access, so the last-sync date is the useful freshness indicator. Check Actions if it becomes stale.
 
-The portrait was copied from the existing local site’s `assets/images/authors/profile.jpg`. The original file was not changed. Research diagrams and the loss landscape were created for this site. The landscape is an illustrative mathematical sketch, not an experimental result. Publication and CV links point to the existing Google Scholar and Google Drive destinations. No publication titles, awards, dates, or results were invented.
+## Publishing
 
-The original Google Site and the older local Hugo checkout were left unchanged. This branch replaces the Hugo implementation with a static website. Its build requires Node.js but does not require Hugo, Go, npm packages, a backend, API credentials, or a paid service.
+GitHub Pages must use **GitHub Actions** as its build source. The workflow validates every push to `main`, uploads only `dist/`, and deploys the site. Standard GitHub workflow credentials perform the scheduled commits and deployment.
 
-## Browser checks
+To run the updater and deployment manually:
 
-Check the light and dark themes, research filters, expandable details, simulation pause/restart, slider keyboard input, and email copy. At mobile widths, check that the menu opens, closes after navigation, and closes with Escape. Check that no content causes horizontal scrolling. Reduced-motion preferences stop automatic simulation playback. Animation also pauses when the figure is outside the viewport or the tab is hidden.
+```sh
+gh workflow run site.yml --repo a-writes-code/a-writes-code.github.io
+```
+
+The source branch is `codex/interactive-site`; the deployment source is `main`. Review and merge future source changes into `main`. After an automatic refresh, fetch the latest `main` before publishing another change. Do not force-push over the updater's commits.
+
+## Content and animation sources
+
+The bio, teaching history, skills, and personal interests were adapted from the [original Google Site](https://sites.google.com/view/aritra-das-phys-ai/page). The portrait was copied from the older local website. That Google Site and the local checkout at `/Users/aritradas/Academic/website/research` were left unchanged. The GitHub website implementation has been replaced, with its history preserved.
+
+The project stories describe the six works found on the public Scholar profile on 22 October 2026. Paper links and evidence limits are recorded in [docs/research-sources.md](docs/research-sources.md). No unpublished projects or unverified individual contribution claims were added.
+
+Animations explain concepts rather than reproduce research figures. The modular arithmetic and cellular automata compute exact task outputs. Other scenes are schematic and labelled accordingly. All animations have pause and replay controls. They stop automatic playback for reduced-motion preferences and pause when outside the viewport or when the browser tab is hidden.
+
+All personal content, project stories, and publications remain readable without JavaScript. JavaScript supplies animations, filters, color-theme controls, and the mobile menu. The site has no runtime dependencies or external font requests.
+
+## Browser verification
+
+Check publication search, year selection, empty search results, project navigation, article paper links, pause/replay controls, and both color themes. At mobile widths, check the menu and horizontal overflow. Use the public deployment URL to verify the result after the GitHub run succeeds; a local build alone does not establish that it is live.

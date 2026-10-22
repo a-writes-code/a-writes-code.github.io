@@ -18,6 +18,7 @@
     <title>Aritra Das — Physics & learning</title>
     <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="./assets/style.css" />
+    <link rel="stylesheet" href="./assets/projects.css" />
     <script>
       try {
         const t = localStorage.getItem("aritra-theme");
@@ -43,6 +44,8 @@
           Menu <span aria-hidden="true">☰</span>
         </button>
         <nav id="main-nav" aria-label="Main navigation">
+          <a href="#projects">Projects</a>
+          <a href="#publications">Publications</a>
           <a href="#research">Research</a>
           <a href="#about">About</a>
           <a href="#teaching">Teaching</a>
@@ -87,8 +90,8 @@
             systems, and how AI can help us understand the physical world.
           </p>
           <div class="hero-links">
-            <a class="button primary" href="#research"
-              >Explore my research <span aria-hidden="true">↘</span></a
+            <a class="button primary" href="#projects"
+              >Read project stories <span aria-hidden="true">↘</span></a
             >
             <a
               class="text-link"
@@ -188,6 +191,76 @@
         </figure>
       </section>
 
+      <!-- PROJECTS:START -->
+<section id="projects" class="section container projects-section" aria-labelledby="projects-heading">
+    <div class="section-heading"><div><p class="eyebrow">01 / PROJECTS</p><h2 id="projects-heading">The stories behind the research<span class="accent">.</span></h2></div><p class="section-aside">The question. The experiment.<br>What we learned.</p></div>
+    <p class="section-intro">A closer look at the projects I’ve worked on, with a short animation to introduce each idea.</p>
+    <div class="project-grid"><article class="project-card">
+      <figure class="project-animation compact-animation" data-animation="manifold" data-stages="[&quot;A surface can have two intrinsic dimensions in 3D.&quot;,&quot;Stretching changes the embedding.&quot;,&quot;The intrinsic dimension is still two.&quot;]">
+    <div class="animation-topline"><span class="small-mono">THE IDEA IN MOTION</span><span class="animation-time small-mono" aria-hidden="true">00 / 12s</span></div>
+    <canvas width="720" height="400" role="img" aria-label="A rotating point cloud on a surface stretches without changing its two intrinsic dimensions."></canvas>
+    <figcaption><p class="animation-stage">A surface can have two intrinsic dimensions in 3D.</p><div class="animation-bottom"><span class="animation-kind">Conceptual animation</span><div class="animation-buttons js-only"><button type="button" class="animation-play icon-button" aria-label="Pause animation: HomID: a stress test for dimension estimators" data-title="HomID: a stress test for dimension estimators"><span aria-hidden="true">Ⅱ</span></button><button type="button" class="animation-replay icon-button" aria-label="Replay animation: HomID: a stress test for dimension estimators"><span aria-hidden="true">↺</span></button></div></div><noscript><p class="animation-note">Enable JavaScript to play this animation. The explanation below remains available.</p></noscript></figcaption>
+  </figure>
+      <div class="project-card-copy"><div class="project-meta"><p class="card-kicker">GEOMETRY · INTRINSIC DIMENSION</p><span class="small-mono">2025–2026</span></div><h3><a href="./projects/homid/">HomID: a stress test for dimension estimators</a></h3><p>Different estimators can give very different answers for the same data. HomID tests them on curved spaces whose true dimension is known.</p><a class="story-link" href="./projects/homid/">Read the story <span aria-hidden="true">→</span></a></div>
+    </article>
+<article class="project-card">
+      <figure class="project-animation compact-animation" data-animation="context" data-stages="[&quot;Examples in the prompt describe a task.&quot;,&quot;The same weights must handle a new task.&quot;,&quot;Use the examples to answer a new question.&quot;]">
+    <div class="animation-topline"><span class="small-mono">THE IDEA IN MOTION</span><span class="animation-time small-mono" aria-hidden="true">00 / 12s</span></div>
+    <canvas width="720" height="400" role="img" aria-label="Examples reveal a hidden modular rule, followed by an exact answer to a new input."></canvas>
+    <figcaption><p class="animation-stage">Examples in the prompt describe a task.</p><div class="animation-bottom"><span class="animation-kind">Conceptual animation</span><div class="animation-buttons js-only"><button type="button" class="animation-play icon-button" aria-label="Pause animation: Learning to grok: from examples to new tasks" data-title="Learning to grok: from examples to new tasks"><span aria-hidden="true">Ⅱ</span></button><button type="button" class="animation-replay icon-button" aria-label="Replay animation: Learning to grok: from examples to new tasks"><span aria-hidden="true">↺</span></button></div></div><noscript><p class="animation-note">Enable JavaScript to play this animation. The explanation below remains available.</p></noscript></figcaption>
+  </figure>
+      <div class="project-card-copy"><div class="project-meta"><p class="card-kicker">TRANSFORMERS · IN-CONTEXT LEARNING</p><span class="small-mono">2024</span></div><h3><a href="./projects/learning-to-grok/">Learning to grok: from examples to new tasks</a></h3><p>We use modular arithmetic to study when a transformer can combine learned skills and solve tasks it did not see during training.</p><a class="story-link" href="./projects/learning-to-grok/">Read the story <span aria-hidden="true">→</span></a></div>
+    </article>
+<article class="project-card">
+      <figure class="project-animation compact-animation" data-animation="polynomial" data-stages="[&quot;Compute two modular products.&quot;,&quot;Combine the expert computations.&quot;,&quot;The polynomial result follows exactly.&quot;]">
+    <div class="animation-topline"><span class="small-mono">THE IDEA IN MOTION</span><span class="animation-time small-mono" aria-hidden="true">00 / 12s</span></div>
+    <canvas width="720" height="400" role="img" aria-label="Two exact modular multiplication operations are combined to evaluate a polynomial."></canvas>
+    <figcaption><p class="animation-stage">Compute two modular products.</p><div class="animation-bottom"><span class="animation-kind">Conceptual animation</span><div class="animation-buttons js-only"><button type="button" class="animation-play icon-button" aria-label="Pause animation: Building modular arithmetic from expert circuits" data-title="Building modular arithmetic from expert circuits"><span aria-hidden="true">Ⅱ</span></button><button type="button" class="animation-replay icon-button" aria-label="Replay animation: Building modular arithmetic from expert circuits"><span aria-hidden="true">↺</span></button></div></div><noscript><p class="animation-note">Enable JavaScript to play this animation. The explanation below remains available.</p></noscript></figcaption>
+  </figure>
+      <div class="project-card-copy"><div class="project-meta"><p class="card-kicker">LEARNABILITY · ANALYTICAL NETWORKS</p><span class="small-mono">2024</span></div><h3><a href="./projects/modular-polynomials/">Building modular arithmetic from expert circuits</a></h3><p>An exact network can solve a task that ordinary training struggles with. We explore this gap by composing analytical arithmetic circuits.</p><a class="story-link" href="./projects/modular-polynomials/">Read the story <span aria-hidden="true">→</span></a></div>
+    </article>
+<article class="project-card">
+      <figure class="project-animation compact-animation" data-animation="automata" data-stages="[&quot;A local rule updates each binary cell.&quot;,&quot;Repeated updates create a whole pattern.&quot;,&quot;Change the rule to change the data.&quot;]">
+    <div class="animation-topline"><span class="small-mono">A RULE IN MOTION</span><span class="animation-time small-mono" aria-hidden="true">00 / 12s</span></div>
+    <canvas width="720" height="400" role="img" aria-label="Elementary cellular automata rules 90 and 30 generate rows of binary cells from a single seed."></canvas>
+    <figcaption><p class="animation-stage">A local rule updates each binary cell.</p><div class="animation-bottom"><span class="animation-kind">Cellular automaton</span><div class="animation-buttons js-only"><button type="button" class="animation-play icon-button" aria-label="Pause animation: Model depth through the lens of cellular automata" data-title="Model depth through the lens of cellular automata"><span aria-hidden="true">Ⅱ</span></button><button type="button" class="animation-replay icon-button" aria-label="Replay animation: Model depth through the lens of cellular automata"><span aria-hidden="true">↺</span></button></div></div><noscript><p class="animation-note">Enable JavaScript to play this animation. The explanation below remains available.</p></noscript></figcaption>
+  </figure>
+      <div class="project-card-copy"><div class="project-meta"><p class="card-kicker">MODEL DEPTH · CONTROLLED DATASETS</p><span class="small-mono">2024</span></div><h3><a href="./projects/cellular-automata/">Model depth through the lens of cellular automata</a></h3><p>Simple local rules generate patterns with very different behavior. We use these tasks to study the relationship between model depth and data complexity.</p><a class="story-link" href="./projects/cellular-automata/">Read the story <span aria-hidden="true">→</span></a></div>
+    </article>
+<article class="project-card">
+      <figure class="project-animation compact-animation" data-animation="noise" data-stages="[&quot;Begin with a known modular arithmetic rule.&quot;,&quot;Some training answers are deliberately wrong.&quot;,&quot;Separate rule learning from memorized exceptions.&quot;]">
+    <div class="animation-topline"><span class="small-mono">THE IDEA IN MOTION</span><span class="animation-time small-mono" aria-hidden="true">00 / 12s</span></div>
+    <canvas width="720" height="400" role="img" aria-label="An arithmetic table acquires wrong labels, followed by a schematic separation and pruning of memorizing units."></canvas>
+    <figcaption><p class="animation-stage">Begin with a known modular arithmetic rule.</p><div class="animation-bottom"><span class="animation-kind">Conceptual animation</span><div class="animation-buttons js-only"><button type="button" class="animation-play icon-button" aria-label="Pause animation: To grok or not to grok: learning with wrong labels" data-title="To grok or not to grok: learning with wrong labels"><span aria-hidden="true">Ⅱ</span></button><button type="button" class="animation-replay icon-button" aria-label="Replay animation: To grok or not to grok: learning with wrong labels"><span aria-hidden="true">↺</span></button></div></div><noscript><p class="animation-note">Enable JavaScript to play this animation. The explanation below remains available.</p></noscript></figcaption>
+  </figure>
+      <div class="project-card-copy"><div class="project-meta"><p class="card-kicker">GROKKING · MEMORIZATION · ROBUSTNESS</p><span class="small-mono">2023–2024</span></div><h3><a href="./projects/grokking-with-noise/">To grok or not to grok: learning with wrong labels</a></h3><p>We deliberately corrupt arithmetic labels to separate rule learning from memorization, then examine the neurons that support each behavior.</p><a class="story-link" href="./projects/grokking-with-noise/">Read the story <span aria-hidden="true">→</span></a></div>
+    </article>
+<article class="project-card">
+      <figure class="project-animation compact-animation" data-animation="holes" data-stages="[&quot;Two backgrounds differ by one lattice translation.&quot;,&quot;A hole separates the two electric-link patterns.&quot;,&quot;Moving the hole moves the boundary.&quot;]">
+    <div class="animation-topline"><span class="small-mono">THE IDEA IN MOTION</span><span class="animation-time small-mono" aria-hidden="true">00 / 12s</span></div>
+    <canvas width="720" height="400" role="img" aria-label="A hole moves between two shifted electric-link backgrounds, moving the domain wall with it."></canvas>
+    <figcaption><p class="animation-stage">Two backgrounds differ by one lattice translation.</p><div class="animation-bottom"><span class="animation-kind">Conceptual animation</span><div class="animation-buttons js-only"><button type="button" class="animation-play icon-button" aria-label="Pause animation: Fractionalized holes in a one-dimensional gauge theory" data-title="Fractionalized holes in a one-dimensional gauge theory"><span aria-hidden="true">Ⅱ</span></button><button type="button" class="animation-replay icon-button" aria-label="Replay animation: Fractionalized holes in a one-dimensional gauge theory"><span aria-hidden="true">↺</span></button></div></div><noscript><p class="animation-note">Enable JavaScript to play this animation. The explanation below remains available.</p></noscript></figcaption>
+  </figure>
+      <div class="project-card-copy"><div class="project-meta"><p class="card-kicker">QUANTUM MATTER · GAUGE THEORY</p><span class="small-mono">2021–2023</span></div><h3><a href="./projects/fractionalized-holes/">Fractionalized holes in a one-dimensional gauge theory</a></h3><p>Near full filling, a hole can separate two shifted quantum backgrounds. We study the resulting motion, entanglement, and emergent integrability.</p><a class="story-link" href="./projects/fractionalized-holes/">Read the story <span aria-hidden="true">→</span></a></div>
+    </article></div>
+  </section>
+<!-- PROJECTS:END -->
+      <!-- PUBLICATIONS:START -->
+<section id="publications" class="section container publications-section" aria-labelledby="publications-heading">
+    <div class="section-heading"><div><p class="eyebrow">02 / PUBLICATIONS</p><h2 id="publications-heading">Papers & preprints<span class="accent">.</span></h2></div><a class="text-link" href="https://scholar.google.com/citations?hl=en&amp;user=EVtLmwcAAAAJ" target="_blank" rel="noopener noreferrer">Google Scholar profile <span aria-hidden="true">↗</span></a></div>
+    <div class="publication-source"><span class="status-dot" aria-hidden="true"></span><p>From Google Scholar · Synced <time datetime="2026-10-22T15:31:15+00:00">Oct 22, 2026</time> · Refreshed weekly</p></div>
+    <div class="publication-toolbar js-only"><label class="publication-search"><span class="sr-only">Search publications</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="10" cy="10" r="6"/><path d="m15 15 5 5"/></svg><input type="search" id="publication-search" placeholder="Search papers, authors, or venues" autocomplete="off"></label><label class="publication-year">Year <select id="publication-year" aria-label="Publication year"><option value="all">All years</option><option value="2025">2025</option><option value="2024">2024</option><option value="2023">2023</option></select></label><span id="publication-count" class="small-mono" role="status">6 works</span></div>
+    <ol class="publication-list"><li class="publication-item" data-year="2025"><span class="publication-date">2025<span class="supplemented-year" title="Year supplied by the linked paper">*</span></span><div class="publication-copy"><h3><a class="publication-title" href="https://scholar.google.com/citations?view_op=view_citation&amp;hl=en&amp;user=EVtLmwcAAAAJ&amp;citation_for_view=EVtLmwcAAAAJ%3AY0pCki6q_DkC" target="_blank" rel="noopener noreferrer">Quantum-inspired Benchmark for estimating Intrinsic Dimension <span aria-hidden="true">↗</span></a></h3><p class="publication-authors">A Das, JT Iosue, VV Albert</p><p class="publication-venue">https://arxiv.org/abs/2510.01335</p><div class="publication-links"><a class="text-link" href="https://arxiv.org/abs/2510.01335" target="_blank" rel="noopener noreferrer">Paper <span aria-hidden="true">↗</span></a><a class="text-link" href="./projects/homid/">Project story <span aria-hidden="true">→</span></a></div></div></li>
+<li class="publication-item" data-year="2024"><span class="publication-date">2024<span class="supplemented-year" title="Year supplied by the linked paper">*</span></span><div class="publication-copy"><h3><a class="publication-title" href="https://scholar.google.com/citations?view_op=view_citation&amp;hl=en&amp;user=EVtLmwcAAAAJ&amp;citation_for_view=EVtLmwcAAAAJ%3ATyk-4Ss8FVUC" target="_blank" rel="noopener noreferrer">Exploring model depth and data complexity through the lens of cellular automata <span aria-hidden="true">↗</span></a></h3><p class="publication-authors">T He, D Doshi, A Das, A Gromov</p><p class="publication-venue">NeurIPS 2024 Workshop on Scientific Methods for Understanding Deep Learning</p><div class="publication-links"><a class="text-link" href="https://openreview.net/forum?id=SGoI97b5KK" target="_blank" rel="noopener noreferrer">Paper <span aria-hidden="true">↗</span></a><a class="text-link" href="./projects/cellular-automata/">Project story <span aria-hidden="true">→</span></a></div></div></li>
+<li class="publication-item" data-year="2024"><span class="publication-date">2024</span><div class="publication-copy"><h3><a class="publication-title" href="https://scholar.google.com/citations?view_op=view_citation&amp;hl=en&amp;user=EVtLmwcAAAAJ&amp;citation_for_view=EVtLmwcAAAAJ%3AIjCSPb-OGe4C" target="_blank" rel="noopener noreferrer">Grokking Modular Polynomials <span aria-hidden="true">↗</span></a></h3><p class="publication-authors">D Doshi, T He, A Das, A Gromov</p><p class="publication-venue">arXiv preprint arXiv:2406.03495</p><div class="publication-links"><a class="text-link" href="https://arxiv.org/abs/2406.03495" target="_blank" rel="noopener noreferrer">Paper <span aria-hidden="true">↗</span></a><a class="text-link" href="./projects/modular-polynomials/">Project story <span aria-hidden="true">→</span></a></div></div></li>
+<li class="publication-item" data-year="2024"><span class="publication-date">2024</span><div class="publication-copy"><h3><a class="publication-title" href="https://scholar.google.com/citations?view_op=view_citation&amp;hl=en&amp;user=EVtLmwcAAAAJ&amp;citation_for_view=EVtLmwcAAAAJ%3AUeHWp8X0CEIC" target="_blank" rel="noopener noreferrer">Learning to grok: Emergence of in-context learning and skill composition in modular arithmetic tasks <span aria-hidden="true">↗</span></a></h3><p class="publication-authors">T He, D Doshi, A Das, A Gromov</p><p class="publication-venue">Advances in Neural Information Processing Systems 37, 13244-13273</p><div class="publication-links"><a class="text-link" href="https://proceedings.neurips.cc/paper_files/paper/2024/hash/17d60fef592086d1a5cb136f1946df59-Abstract-Conference.html" target="_blank" rel="noopener noreferrer">Paper <span aria-hidden="true">↗</span></a><a class="text-link" href="./projects/learning-to-grok/">Project story <span aria-hidden="true">→</span></a></div></div></li>
+<li class="publication-item" data-year="2023"><span class="publication-date">2023</span><div class="publication-copy"><h3><a class="publication-title" href="https://scholar.google.com/citations?view_op=view_citation&amp;hl=en&amp;user=EVtLmwcAAAAJ&amp;citation_for_view=EVtLmwcAAAAJ%3AzYLM7Y9cAGgC" target="_blank" rel="noopener noreferrer">Fractionalized holes in one-dimensional Z2 gauge theory coupled to fermion matter: Deconfined dynamics and emergent integrability <span aria-hidden="true">↗</span></a></h3><p class="publication-authors">A Das, U Borla, S Moroz</p><p class="publication-venue">Physical Review B 107 (6), 064302</p><div class="publication-links"><a class="text-link" href="https://doi.org/10.1103/PhysRevB.107.064302" target="_blank" rel="noopener noreferrer">Paper <span aria-hidden="true">↗</span></a><a class="text-link" href="./projects/fractionalized-holes/">Project story <span aria-hidden="true">→</span></a></div></div></li>
+<li class="publication-item" data-year="2023"><span class="publication-date">2023</span><div class="publication-copy"><h3><a class="publication-title" href="https://scholar.google.com/citations?view_op=view_citation&amp;hl=en&amp;user=EVtLmwcAAAAJ&amp;citation_for_view=EVtLmwcAAAAJ%3AqjMakFHDy7sC" target="_blank" rel="noopener noreferrer">To grok or not to grok: Disentangling generalization and memorization on corrupted algorithmic datasets <span aria-hidden="true">↗</span></a></h3><p class="publication-authors">D Doshi, A Das, T He, A Gromov</p><p class="publication-venue">arXiv preprint arXiv:2310.13061</p><div class="publication-links"><a class="text-link" href="https://arxiv.org/abs/2310.13061" target="_blank" rel="noopener noreferrer">Paper <span aria-hidden="true">↗</span></a><a class="text-link" href="./projects/grokking-with-noise/">Project story <span aria-hidden="true">→</span></a></div></div></li></ol>
+    <p id="publication-empty" class="publication-empty" hidden>No papers match this search. Try a different word or year.</p>
+    <p class="publication-footnote">Titles, author lists, and venues follow the Scholar profile. * Missing years are supplied by the linked papers.</p>
+  </section>
+<!-- PUBLICATIONS:END -->
+
       <section
         class="research section container"
         id="research"
@@ -195,7 +268,7 @@
       >
         <div class="section-heading">
           <div>
-            <p class="eyebrow">01 / RESEARCH</p>
+            <p class="eyebrow">03 / RESEARCH INTERESTS</p>
             <h2 id="research-heading">
               A few questions I’m exploring<span class="accent">.</span>
             </h2>
@@ -382,7 +455,7 @@
         aria-labelledby="about-heading"
       >
         <div class="about-heading">
-          <p class="eyebrow">02 / A LITTLE ABOUT ME</p>
+          <p class="eyebrow">04 / A LITTLE ABOUT ME</p>
           <h2 id="about-heading">
             Curiosity across<br />disciplines<span class="accent">.</span>
           </h2>
@@ -463,7 +536,7 @@
       >
         <div class="section-heading">
           <div>
-            <p class="eyebrow">03 / TEACHING</p>
+            <p class="eyebrow">05 / TEACHING</p>
             <h2 id="teaching-heading">
               Physics, in good company<span class="accent">.</span>
             </h2>
@@ -518,7 +591,7 @@
         aria-labelledby="off-clock-heading"
       >
         <div class="off-clock-intro">
-          <p class="eyebrow">04 / OFF THE CLOCK</p>
+          <p class="eyebrow">06 / OFF THE CLOCK</p>
           <h2 id="off-clock-heading">
             Away from<br />the equations<span class="accent">.</span>
           </h2>
@@ -573,7 +646,7 @@
       >
         <div class="container contact-inner">
           <div>
-            <p class="eyebrow">05 / SAY HELLO</p>
+            <p class="eyebrow">07 / SAY HELLO</p>
             <h2 id="contact-heading">
               Interesting questions<br />start with a conversation<span>.</span>
             </h2>

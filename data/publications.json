@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "profile": {
+    "id": "EVtLmwcAAAAJ",
+    "name": "Aritra Das",
+    "url": "https://scholar.google.com/citations?hl=en&user=EVtLmwcAAAAJ"
+  },
+  "syncedAt": "2026-10-22T15:31:15+00:00",
+  "publications": [
+    {
+      "id": "EVtLmwcAAAAJ:IjCSPb-OGe4C",
+      "title": "Grokking Modular Polynomials",
+      "authors": "D Doshi, T He, A Das, A Gromov",
+      "venue": "arXiv preprint arXiv:2406.03495",
+      "year": 2024,
+      "citationCount": 18,
+      "scholarUrl": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=EVtLmwcAAAAJ&citation_for_view=EVtLmwcAAAAJ%3AIjCSPb-OGe4C"
+    },
+    {
+      "id": "EVtLmwcAAAAJ:Tyk-4Ss8FVUC",
+      "title": "Exploring model depth and data complexity through the lens of cellular automata",
+      "authors": "T He, D Doshi, A Das, A Gromov",
+      "venue": "NeurIPS 2024 Workshop on Scientific Methods for Understanding Deep Learning",
+      "year": null,
+      "citationCount": null,
+      "scholarUrl": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=EVtLmwcAAAAJ&citation_for_view=EVtLmwcAAAAJ%3ATyk-4Ss8FVUC"
+    },
+    {
+      "id": "EVtLmwcAAAAJ:UeHWp8X0CEIC",
+      "title": "Learning to grok: Emergence of in-context learning and skill composition in modular arithmetic tasks",
+      "authors": "T He, D Doshi, A Das, A Gromov",
+      "venue": "Advances in Neural Information Processing Systems 37, 13244-13273",
+      "year": 2024,
+      "citationCount": 49,
+      "scholarUrl": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=EVtLmwcAAAAJ&citation_for_view=EVtLmwcAAAAJ%3AUeHWp8X0CEIC"
+    },
+    {
+      "id": "EVtLmwcAAAAJ:Y0pCki6q_DkC",
+      "title": "Quantum-inspired Benchmark for estimating Intrinsic Dimension",
+      "authors": "A Das, JT Iosue, VV Albert",
+      "venue": "https://arxiv.org/abs/2510.01335",
+      "year": null,
+      "citationCount": null,
+      "scholarUrl": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=EVtLmwcAAAAJ&citation_for_view=EVtLmwcAAAAJ%3AY0pCki6q_DkC"
+    },
+    {
+      "id": "EVtLmwcAAAAJ:qjMakFHDy7sC",
+      "title": "To grok or not to grok: Disentangling generalization and memorization on corrupted algorithmic datasets",
+      "authors": "D Doshi, A Das, T He, A Gromov",
+      "venue": "arXiv preprint arXiv:2310.13061",
+      "year": 2023,
+      "citationCount": 13,
+      "scholarUrl": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=EVtLmwcAAAAJ&citation_for_view=EVtLmwcAAAAJ%3AqjMakFHDy7sC"
+    },
+    {
+      "id": "EVtLmwcAAAAJ:zYLM7Y9cAGgC",
+      "title": "Fractionalized holes in one-dimensional Z2 gauge theory coupled to fermion matter: Deconfined dynamics and emergent integrability",
+      "authors": "A Das, U Borla, S Moroz",
+      "venue": "Physical Review B 107 (6), 064302",
+      "year": 2023,
+      "citationCount": 11,
+      "scholarUrl": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=EVtLmwcAAAAJ&citation_for_view=EVtLmwcAAAAJ%3AzYLM7Y9cAGgC"
+    }
+  ]
+}
