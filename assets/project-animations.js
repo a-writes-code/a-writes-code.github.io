@@ -12,8 +12,48 @@ export function nextAutomatonRow(row, rule) {
 
 export const modularRule = (x, y, a = 2, b = 3, p = 7) =>
   (((a * x + b * y) % p) + p) % p;
+export const polynomialTerms = (x, y, p = 7) =>
+  [x * y ** 3, x ** 2 * y].map((value) => ((value % p) + p) % p);
 export const modularPolynomial = (x, y, p = 7) =>
-  (((x * x + x * y) % p) + p) % p;
+  polynomialTerms(x, y, p).reduce((sum, value) => (sum + value) % p, 0);
+
+export function contextTask(index, seed = 0) {
+  const [a, b] = [
+    [2, 3],
+    [5, 4],
+    [3, 6],
+  ][index];
+  const inputs = [
+    [1, 0],
+    [0, 1],
+    [2, 1],
+  ];
+  let state = (seed ^ Math.imul(index + 1, 0x9e3779b9)) >>> 0;
+  const next = () => {
+    state = (Math.imul(state, 1664525) + 1013904223) >>> 0;
+    return state % 7;
+  };
+  let x = next();
+  const y = next();
+  while (inputs.some((pair) => pair[0] === x && pair[1] === y)) x = (x + 1) % 7;
+  return {
+    a,
+    b,
+    color: index === 2 ? "red" : "green",
+    examples: inputs.map(([x, y]) => [x, y, modularRule(x, y, a, b)]),
+    query: [x, y],
+  };
+}
+
+export function regularizationFrame(t) {
+  const progress = smooth((t - 0.25) / 0.5);
+  return { progress, green: 0.22 + 0.78 * progress, red: 1 - 0.84 * progress };
+}
+
+export function holeSite(t) {
+  const phase = ((t % 1) + 1) % 1;
+  return [2, 4, 6, 8, 10, 8, 6, 4][Math.floor(phase * 8)];
+}
 
 const automata = new Map(
   [30, 90].map((rule) => {
@@ -64,51 +104,60 @@ function box(ctx, x, y, w, h, color, fill) {
   ctx.stroke();
 }
 
-function context(ctx, t, p) {
-  const examples = [
-    [1, 0],
-    [0, 1],
-    [2, 1],
-  ];
-  text(ctx, "A new task, described by examples", 360, 32, 19, p.ink, "center");
-  examples.forEach(([x, y], i) => {
-    const opacity = t > i * 0.14 ? 1 : 0.18;
+function context(ctx, t, p, seconds, seed) {
+  function row(index, center, scale, opacity = 1) {
+    const task = contextTask(index, seed);
     ctx.save();
+    ctx.translate(360, center);
+    ctx.scale(scale, scale);
     ctx.globalAlpha = opacity;
-    const bx = 40 + i * 225;
-    box(ctx, bx, 82, 190, 110, p.line, p.surface);
-    text(ctx, `EXAMPLE ${i + 1}`, bx + 95, 108, 12, p.muted, "center");
-    text(
-      ctx,
-      `(${x}, ${y}) → ${modularRule(x, y)}`,
-      bx + 95,
-      148,
-      25,
-      p.ink,
-      "center",
+    const pieces = [
+      ["z = ", p.text],
+      [String(task.a), p[task.color]],
+      ["x + ", p.text],
+      [String(task.b), p[task.color]],
+      ["y  (mod 7)", p.text],
+    ];
+    ctx.font = '30px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+    const total = pieces.reduce(
+      (sum, [value]) => sum + ctx.measureText(value).width,
+      0,
     );
+    let left = -total / 2;
+    for (const [value, color] of pieces) {
+      text(ctx, value, left, -35, 30, color);
+      left += ctx.measureText(value).width;
+    }
+    const cells = [...task.examples, [...task.query, "?"]];
+    cells.forEach((values, i) => {
+      const x = -325 + i * 166;
+      box(ctx, x, -4, 152, 64, p.text, p.paper);
+      text(ctx, `(${values.join(", ")})`, x + 76, 28, 25, p.text, "center");
+    });
     ctx.restore();
-  });
-  const answer = t > 0.68 ? modularRule(4, 1) : "?";
-  text(ctx, `New input: (4, 1) → ${answer}`, 360, 250, 27, p.ink, "center");
-  text(
-    ctx,
-    "mod 7 · model weights stay fixed",
-    360,
-    297,
-    14,
-    p.muted,
-    "center",
-  );
-  if (t > 0.68) line(ctx, 280, 274, 441, 274, p.accent, 2);
+  }
+  const first = smooth((seconds - 4) / 1.5);
+  row(0, 160 + (48 - 160) * first, 1 - 0.34 * first);
+  if (seconds >= 5.5) {
+    const second = smooth((seconds - 10) / 1.5);
+    row(
+      1,
+      165 + (155 - 165) * second,
+      1 - 0.34 * second,
+      smooth((seconds - 5.5) / 0.5),
+    );
+  }
+  if (seconds >= 11.5) row(2, 260, 1, smooth((seconds - 11.5) / 0.5));
 }
 
 function polynomial(ctx, t, p) {
-  text(ctx, "x² + xy (mod 7)", 360, 32, 22, p.ink, "center");
+  text(ctx, "xy³ + x²y (mod 7)", 360, 32, 22, p.ink, "center");
+  const terms = polynomialTerms(3, 2);
   const edges = [
     [100, 110, 300, 110],
     [100, 110, 300, 230],
     [100, 250, 300, 230],
+    [100, 250, 300, 110],
     [390, 110, 520, 170],
     [390, 230, 520, 170],
     [570, 170, 657, 170],
@@ -120,10 +169,10 @@ function polynomial(ctx, t, p) {
   text(ctx, "y = 2", 80, 250, 20, p.ink, "center");
   box(ctx, 270, 76, 135, 69, p.line, p.surface);
   box(ctx, 270, 196, 135, 69, p.line, p.surface);
-  text(ctx, "x × x", 337, 96, 15, p.muted, "center");
-  text(ctx, "x × y", 337, 216, 15, p.muted, "center");
-  text(ctx, t > 0.18 ? "2" : "·", 337, 124, 24, p.ink, "center");
-  text(ctx, t > 0.25 ? "6" : "·", 337, 244, 24, p.ink, "center");
+  text(ctx, "x × y³", 337, 96, 15, p.muted, "center");
+  text(ctx, "x² × y", 337, 216, 15, p.muted, "center");
+  text(ctx, t > 0.18 ? String(terms[0]) : "·", 337, 124, 24, p.ink, "center");
+  text(ctx, t > 0.25 ? String(terms[1]) : "·", 337, 244, 24, p.ink, "center");
   dot(ctx, 540, 170, 30, p.surface);
   ctx.beginPath();
   ctx.arc(540, 170, 30, 0, Math.PI * 2);
@@ -148,7 +197,7 @@ function polynomial(ctx, t, p) {
     p.muted,
     "center",
   );
-  const edgeIndex = t < 0.35 ? 0 : t < 0.66 ? 3 : 5;
+  const edgeIndex = t < 0.35 ? 0 : t < 0.66 ? 4 : 6;
   const [x1, y1, x2, y2] = edges[edgeIndex];
   const phase = (t * 3) % 1;
   dot(ctx, x1 + (x2 - x1) * phase, y1 + (y2 - y1) * phase, 5, p.accent);
@@ -181,14 +230,15 @@ function automaton(ctx, t, p) {
 }
 
 function noise(ctx, t, p) {
+  const state = regularizationFrame(t);
   const corrupted = new Set([5, 16, 23, 39, 44]);
-  text(ctx, "(a + b) mod 7", 138, 32, 19, p.ink, "center");
+  text(ctx, "(a + b) mod 7", 138, 32, 19, p.text, "center");
   for (let row = 0; row < 7; row++) {
     for (let col = 0; col < 7; col++) {
-      const wrong = t > 0.28 && corrupted.has(row * 7 + col);
+      const wrong = corrupted.has(row * 7 + col);
       const x = 38 + col * 30,
         y = 68 + row * 30;
-      ctx.fillStyle = wrong ? p.coral : p.grid;
+      ctx.fillStyle = wrong ? p.red : p.grid;
       ctx.fillRect(x, y, 27, 27);
       text(
         ctx,
@@ -196,45 +246,76 @@ function noise(ctx, t, p) {
         x + 13.5,
         y + 14,
         13,
-        wrong ? "#fff8ed" : p.ink,
+        wrong ? "#fff8ed" : p.text,
         "center",
       );
     }
   }
-  text(ctx, "Training examples", 138, 303, 14, p.muted, "center");
+  text(ctx, "Corrupted examples", 138, 303, 14, p.muted, "center");
   line(ctx, 272, 171, 330, 171, p.line, 2);
-  text(ctx, "→", 300, 171, 24, p.muted, "center");
-  text(ctx, "Rule", 417, 57, 19, p.ink, "center");
-  text(ctx, "Exceptions", 585, 57, 19, p.coral, "center");
-  for (let i = 0; i < 9; i++) {
-    const y = 111 + Math.floor(i / 3) * 53;
-    const x = 377 + (i % 3) * 40;
-    dot(ctx, x, y, 11, p.ink);
-    ctx.save();
-    ctx.globalAlpha = t > 0.7 ? 1 - smooth((t - 0.7) / 0.23) * 0.85 : 1;
-    dot(ctx, x + 168, y, 11, p.coral);
-    if (t > 0.79) {
-      line(ctx, x + 160, y - 8, x + 176, y + 8, p.paper, 2);
-    }
-    ctx.restore();
-  }
+  text(ctx, "→", 300, 171, 24, p.text, "center");
   text(
     ctx,
-    t > 0.7 ? "A targeted pruning intervention" : "Schematic neuron groups",
-    500,
-    290,
-    15,
-    p.muted,
+    t < 0.25 ? "Neural network" : "Regularization increases",
+    501,
+    32,
+    20,
+    p.text,
     "center",
   );
+  const layers = [
+    Array.from({ length: 3 }, (_, i) => ({
+      x: 366,
+      y: 109 + i * 58,
+      color: i % 2 === 0 ? "red" : "green",
+    })),
+    Array.from({ length: 6 }, (_, i) => ({
+      x: 494,
+      y: 77 + i * 37,
+      color: i % 2 === 0 ? "green" : "red",
+    })),
+    Array.from({ length: 3 }, (_, i) => ({
+      x: 625,
+      y: 109 + i * 58,
+      color: i % 2 === 0 ? "green" : "red",
+    })),
+  ];
+  for (let layer = 0; layer < layers.length - 1; layer++) {
+    for (const a of layers[layer])
+      for (const b of layers[layer + 1]) {
+        ctx.save();
+        ctx.globalAlpha = a.color === b.color ? state[a.color] * 0.44 : 0.14;
+        line(
+          ctx,
+          a.x,
+          a.y,
+          b.x,
+          b.y,
+          a.color === b.color ? p[a.color] : p.line,
+          1.25,
+        );
+        ctx.restore();
+      }
+  }
+  for (const neuron of layers.flat()) {
+    dot(ctx, neuron.x, neuron.y, 11, p.paper);
+    ctx.save();
+    ctx.globalAlpha = state[neuron.color];
+    ctx.shadowBlur = 15 * state[neuron.color];
+    ctx.shadowColor = p[neuron.color];
+    dot(ctx, neuron.x, neuron.y, 10, p[neuron.color]);
+    ctx.restore();
+  }
+  dot(ctx, 359, 304, 4, p.green);
+  text(ctx, "Generalization", 372, 304, 13, p.text);
+  dot(ctx, 538, 304, 4, p.red);
+  text(ctx, "Memorization", 551, 304, 13, p.text);
 }
 
 function holes(ctx, t, p) {
-  const hole = 2 + Math.floor((0.5 - 0.5 * Math.cos(t * Math.PI * 2)) * 8);
+  const hole = holeSite(t);
   const x0 = 62,
     spacing = 49;
-  text(ctx, "Vacuum A", 62, 43, 19, p.ink);
-  text(ctx, "Vacuum B: shifted by one site", 658, 43, 17, p.muted, "right");
   for (let i = 0; i < 12; i++) {
     const active = i < hole ? i % 2 === 0 : i % 2 === 1;
     line(
@@ -259,21 +340,6 @@ function holes(ctx, t, p) {
       ctx.stroke();
     }
   }
-  const boundary = x0 + hole * spacing;
-  ctx.save();
-  ctx.setLineDash([4, 5]);
-  line(ctx, boundary, 91, boundary, 242, p.coral, 1.5);
-  ctx.restore();
-  text(ctx, "hole / domain wall", boundary, 274, 17, p.coral, "center");
-  text(
-    ctx,
-    "Electric-link patterns meet at a missing particle",
-    360,
-    317,
-    15,
-    p.muted,
-    "center",
-  );
 }
 
 const scenes = {
@@ -307,6 +373,9 @@ export function initProjectAnimations() {
           paper: "#23342b",
           accent: "#f0d494",
           coral: "#dbad95",
+          text: "#f2f2ef",
+          green: "#82cf99",
+          red: "#f18b88",
         }
       : {
           ink: "#426c55",
@@ -317,6 +386,9 @@ export function initProjectAnimations() {
           paper: "#edf0e6",
           accent: "#a58b47",
           coral: "#b57560",
+          text: "#252725",
+          green: "#257844",
+          red: "#bd4145",
         };
   }
 
@@ -343,6 +415,7 @@ export function initProjectAnimations() {
       item.time / item.duration,
       palette(),
       item.time,
+      item.seed,
     );
     const stage = Math.max(
       0,
@@ -412,6 +485,7 @@ export function initProjectAnimations() {
       stage: -1,
       visible: false,
       running: !reduced.matches,
+      seed: Math.floor(Math.random() * 0x100000000),
     };
     items.push(item);
     item.seek?.addEventListener("input", () => {

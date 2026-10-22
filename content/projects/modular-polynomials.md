@@ -16,7 +16,7 @@ It does not mean that standard training reliably discovers every such solution. 
 
 ## A circuit you can follow
 
-The animation evaluates x² + xy modulo seven. Two multiplication branches feed an addition step. Each number is computed exactly. This is a schematic of composing arithmetic operations, rather than a drawing of the full analytical neural network.
+The animation evaluates xy³ + x²y modulo seven. Two arithmetic branches feed an addition step. For x = 3 and y = 2, the branches give 3 and 4 modulo seven, so the final result is 0. Each number is computed exactly. This is a schematic of composing arithmetic operations, rather than a drawing of the full analytical neural network.
 
 The broader lesson is that *a solution exists* and *training finds a solution* are different statements. Controlled tasks let us ask what lies between them.
 

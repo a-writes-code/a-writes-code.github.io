@@ -16,7 +16,7 @@ Pruning the identified memorizing neurons reduces performance on corrupted examp
 
 ## What the animation leaves out
 
-The animation starts with an arithmetic table, introduces wrong labels, and separates schematic rule-learning and memorizing units. It illustrates the intervention and the distinction we study. The colored units are not measured neurons, and their counts do not encode an experimental result.
+The animation places a schematic neural network beside corrupted arithmetic examples. Red neurons represent memorization, and green neurons represent generalization. As regularization increases, the red neurons dim and the green neurons brighten. Red neurons remain faintly visible. Their brightness and counts do not encode experimental measurements.
 
 The central question is more useful than a simple choice between learning and memorization: *which computations coexist, and how can we tell them apart?*
 

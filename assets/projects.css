@@ -44,6 +44,10 @@
   font-size: 8px;
   letter-spacing: 0.6px;
 }
+.animation-time {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
 .project-animation canvas {
   display: block;
   width: 100%;

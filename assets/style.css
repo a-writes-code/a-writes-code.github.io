@@ -244,9 +244,10 @@ img {
 }
 .hero {
   display: grid;
-  grid-template-columns: 1.1fr 1fr;
+  grid-template-columns: minmax(0, 550px) minmax(0, 420px);
+  justify-content: center;
   align-items: center;
-  gap: 50px;
+  gap: 36px;
   padding-block: 58px 58px;
 }
 .hero-portrait {

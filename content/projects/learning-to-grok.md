@@ -16,7 +16,7 @@ The transition depends on architecture and training. In the deeper models we stu
 
 ## Reading the little example
 
-The animation reveals examples of one hidden modular rule, then asks a new question. It illustrates the task format and the role of context. The displayed answer comes from exact arithmetic, not a transformer running in your browser. The research question is when a trained network learns to perform this kind of inference.
+The animation shows three modular tasks in sequence. Each prompt contains three completed examples and a query. Earlier sequences shrink as the next task appears. Green coefficients mark the first two rules; red coefficients mark the third. The completed examples use exact arithmetic. The research question is when a trained network learns to perform this kind of inference.
 
 > **The takeaway**
 >

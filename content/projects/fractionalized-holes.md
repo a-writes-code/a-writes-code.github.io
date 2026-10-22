@@ -16,7 +16,7 @@ This limit connects to an integrable model. We also examine how short-range inte
 
 ## A moving boundary, drawn simply
 
-The animation shows a hole between two shifted electric-link patterns. Moving the hole also moves their boundary. It is a schematic of the domain-wall picture, not a quantum time-evolution simulation. The paper treats the wave dynamics and entanglement that this simple drawing cannot show.
+The animation shows a hole hopping by two sites on a one-dimensional lattice. It is a schematic of the domain-wall picture, not a quantum time-evolution simulation. The paper treats the wave dynamics and entanglement that this simple drawing cannot show.
 
 > **The takeaway**
 >

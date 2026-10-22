@@ -8,6 +8,10 @@ import {
   nextAutomatonRow,
   modularRule,
   modularPolynomial,
+  polynomialTerms,
+  contextTask,
+  regularizationFrame,
+  holeSite,
 } from "../assets/project-animations.js";
 
 const projects = JSON.parse(
@@ -131,10 +135,72 @@ test("the exact tasks in the animations compute the stated outputs", () => {
   assert.equal(modularRule(0, 1), 3);
   assert.equal(modularRule(2, 1), 0);
   assert.equal(modularRule(4, 1), 4);
-  assert.equal(modularPolynomial(3, 2), 1);
+  assert.deepEqual(polynomialTerms(3, 2), [3, 4]);
+  assert.equal(modularPolynomial(3, 2), 0);
+  assert.equal(modularPolynomial(2, 3), 3);
+  assert.equal(modularPolynomial(-1, 2), 1);
   const seed = [0, 0, 0, 1, 0, 0, 0];
   assert.deepEqual(nextAutomatonRow(seed, 90), [0, 0, 1, 0, 1, 0, 0]);
   assert.deepEqual(nextAutomatonRow(seed, 30), [0, 0, 1, 1, 1, 0, 0]);
   assert.deepEqual(nextAutomatonRow(seed, 0), Array(7).fill(0));
   assert.deepEqual(nextAutomatonRow(seed, 255), Array(7).fill(1));
+});
+
+test("each in-context sequence has three correct modulo-seven examples and a stable unseen query", () => {
+  const coefficients = [
+    [2, 3],
+    [5, 4],
+    [3, 6],
+  ];
+  for (let index = 0; index < coefficients.length; index++) {
+    for (const seed of [0, 1, 832, 0xffffffff]) {
+      const task = contextTask(index, seed);
+      assert.deepEqual([task.a, task.b], coefficients[index]);
+      assert.equal(task.examples.length, 3);
+      for (const [x, y, z] of task.examples)
+        assert.equal(z, (task.a * x + task.b * y) % 7);
+      assert.ok(
+        task.query.every(
+          (value) => Number.isInteger(value) && value >= 0 && value < 7,
+        ),
+      );
+      assert.ok(
+        !task.examples.some(
+          ([x, y]) => x === task.query[0] && y === task.query[1],
+        ),
+      );
+      assert.deepEqual(task.query, contextTask(index, seed).query);
+      assert.equal(task.color, index === 2 ? "red" : "green");
+    }
+  }
+  assert.notDeepEqual(contextTask(0, 1).query, contextTask(0, 832).query);
+});
+
+test("regularization exchanges neuron brightness without deleting the memorizing population", () => {
+  const initial = regularizationFrame(0),
+    final = regularizationFrame(1);
+  assert.ok(initial.red > initial.green);
+  assert.equal(final.green, 1);
+  assert.ok(final.red > 0 && final.red < 0.25);
+  let previous = initial;
+  for (let i = 1; i <= 100; i++) {
+    const current = regularizationFrame(i / 100);
+    assert.ok(current.red <= previous.red && current.green >= previous.green);
+    previous = current;
+  }
+});
+
+test("the hole stays on its sublattice and each hop crosses exactly two sites", () => {
+  assert.deepEqual(
+    Array.from({ length: 9 }, (_, i) => holeSite(i / 8)),
+    [2, 4, 6, 8, 10, 8, 6, 4, 2],
+  );
+  let previous = holeSite(0);
+  for (let i = 1; i <= 1000; i++) {
+    const current = holeSite(i / 1000);
+    assert.equal(current % 2, 0);
+    assert.ok(current >= 2 && current <= 10);
+    assert.ok([0, 2].includes(Math.abs(current - previous)));
+    previous = current;
+  }
 });

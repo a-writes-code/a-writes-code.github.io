@@ -51,13 +51,21 @@
     "paperType": "Conference",
     "venue": "NeurIPS 2024",
     "codeUrl": "https://github.com/ablghtianyi/ICL_Modular_Arithmetic",
-    "animationLabel": "Examples reveal a hidden modular rule, followed by an exact answer to a new input.",
-    "animationNote": "Exact arithmetic illustrates the task; no trained transformer is running here.",
+    "animationLabel": "Three modular task sequences appear in turn. Each contains three completed (x, y, z) cells and one random (x, y, ?) query. The coefficients 2 and 3, then 5 and 4, are green. The final coefficients 3 and 6 are red.",
+    "animationNote": "Exact modulo-seven examples illustrate the prompt format; model weights do not change during in-context learning.",
     "stages": [
-      "Examples in the prompt describe a task.",
-      "The same weights must handle a new task.",
-      "Use the examples to answer a new question."
-    ]
+      "z = 2x + 3y (mod 7).",
+      "z = 5x + 4y (mod 7).",
+      "z = 3x + 6y (mod 7)."
+    ],
+    "animationHeading": "In-context learning",
+    "duration": 18,
+    "stageTimes": [
+      0,
+      5.5,
+      11.5
+    ],
+    "showTimeline": true
   },
   {
     "slug": "modular-polynomials",
@@ -73,13 +81,21 @@
     "paperUrl": "https://arxiv.org/abs/2406.03495",
     "paperType": "Preprint",
     "venue": "arXiv:2406.03495",
-    "animationLabel": "Two exact modular multiplication operations are combined to evaluate a polynomial.",
+    "animationLabel": "Two branches compute xy cubed and x squared y modulo seven for x equals three and y equals two. Their outputs, three and four, add to zero modulo seven.",
     "animationNote": "An arithmetic schematic; not the full neural architecture or a training result.",
     "stages": [
-      "Compute two modular products.",
-      "Combine the expert computations.",
-      "The polynomial result follows exactly."
-    ]
+      "Compute xy³ and x²y modulo 7.",
+      "Add the two branch outputs: 3 + 4.",
+      "For x = 3 and y = 2, the result is 0 modulo 7."
+    ],
+    "animationHeading": "Modular Polynomial with Neural Networks",
+    "duration": 8,
+    "stageTimes": [
+      0,
+      2.6,
+      5.3
+    ],
+    "showTimeline": true
   },
   {
     "slug": "cellular-automata",
@@ -101,7 +117,8 @@
       "A local rule updates each binary cell.",
       "Repeated updates create a whole pattern.",
       "Change the rule to change the data."
-    ]
+    ],
+    "animationHeading": "Cellular Automata in Transformers"
   },
   {
     "slug": "grokking-with-noise",
@@ -117,13 +134,21 @@
     "paperUrl": "https://arxiv.org/abs/2310.13061",
     "paperType": "Preprint",
     "venue": "arXiv:2310.13061",
-    "animationLabel": "An arithmetic table acquires wrong labels, followed by a schematic separation and pruning of memorizing units.",
-    "animationNote": "Conceptual neuron groups; colors and counts are not experimental measurements.",
+    "animationLabel": "A schematic neural network has red memorizing neurons and green generalizing neurons. Red neurons begin bright. As regularization increases, red neurons dim but remain visible while green neurons reach full brightness.",
+    "animationNote": "Schematic neuron populations. Brightness illustrates a qualitative change, not measured neuron activity or a pruning operation.",
     "stages": [
-      "Begin with a known modular arithmetic rule.",
-      "Some training answers are deliberately wrong.",
-      "Separate rule learning from memorized exceptions."
-    ]
+      "Memorizing neurons begin brighter.",
+      "Regularization increases.",
+      "Generalizing neurons brighten; memorizing neurons stay faint."
+    ],
+    "animationHeading": "Generalization and Memorization in Neural Networks",
+    "duration": 12,
+    "stageTimes": [
+      0,
+      3,
+      9
+    ],
+    "showTimeline": true
   },
   {
     "slug": "fractionalized-holes",
@@ -139,12 +164,16 @@
     "paperUrl": "https://doi.org/10.1103/PhysRevB.107.064302",
     "paperType": "Journal",
     "venue": "Physical Review B 107, 064302 (2023)",
-    "animationLabel": "A hole moves between two shifted electric-link backgrounds, moving the domain wall with it.",
-    "animationNote": "Schematic domain-wall motion; not simulated quantum dynamics.",
+    "animationLabel": "A hole hops by two sites at each step along a one-dimensional lattice.",
+    "animationNote": "",
     "stages": [
-      "Two backgrounds differ by one lattice translation.",
-      "A hole separates the two electric-link patterns.",
-      "Moving the hole moves the boundary."
+      ""
+    ],
+    "animationHeading": "Holes on 1D lattices",
+    "minimalAnimation": true,
+    "duration": 12,
+    "stageTimes": [
+      0
     ]
   }
 ]
