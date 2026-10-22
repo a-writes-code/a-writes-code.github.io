@@ -17,10 +17,10 @@
     "animationNote": "SO(2) is the subgroup of SO(3) that fixes the chosen north-pole vector. The quotient is a homogeneous space, not a quotient group.",
     "stages": [
       "Begin with the sphere S².",
-      "Dim the sphere to keep its geometry as a guide.",
+      "The coherent state method proceeds as follows.",
       "Choose a north-pole direction.",
-      "SO(2): turn around the axis. The arrow stays fixed.",
-      "SO(3): move the arrow to any point on the sphere.",
+      "A SO(2) rotation around the z-axis leaves north pole invariant.",
+      "A SO(3) rotation move the arrow to arbitrary point on the sphere.",
       "Identify rotations that differ only by an SO(2) turn.",
       "SO(3) / SO(2) ≅ S²."
     ],
@@ -37,7 +37,7 @@
   },
   {
     "slug": "learning-to-grok",
-    "shortTitle": "Learning to grok: from examples to new tasks",
+    "shortTitle": "Learning to grok from in-context examples",
     "kicker": "TRANSFORMERS · IN-CONTEXT LEARNING",
     "year": "2024",
     "publicationYear": 2024,
@@ -60,7 +60,7 @@
   },
   {
     "slug": "modular-polynomials",
-    "shortTitle": "Building modular arithmetic from expert circuits",
+    "shortTitle": "Solving arbitrary modular polynomials through architecture design.",
     "kicker": "LEARNABILITY · ANALYTICAL NETWORKS",
     "year": "2024",
     "publicationYear": 2024,
@@ -82,7 +82,7 @@
   },
   {
     "slug": "cellular-automata",
-    "shortTitle": "Model depth through the lens of cellular automata",
+    "shortTitle": "Cellular Automata and Model Depth",
     "kicker": "MODEL DEPTH · CONTROLLED DATASETS",
     "year": "2024",
     "publicationYear": 2024,
@@ -104,7 +104,7 @@
   },
   {
     "slug": "grokking-with-noise",
-    "shortTitle": "To grok or not to grok: learning with wrong labels",
+    "shortTitle": "Generalizing sub-circuits and how to find them.",
     "kicker": "GROKKING · MEMORIZATION · ROBUSTNESS",
     "year": "2023–2024",
     "publicationYear": 2023,
