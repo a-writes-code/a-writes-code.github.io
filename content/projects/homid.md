@@ -1,26 +1,31 @@
-# How many dimensions does a dataset really have?
+# Benchmarking Intrinsic Dimension Estimators #
 
-A surface can sit in three dimensions while needing only two coordinates to describe a point. The same distinction appears in machine learning: the number of recorded features need not equal the number of independent variables in the data.
+The space in which a manifold is *represented* is not directly related to the actual directions that one can access when on the manifold. For example, think of a circle. When drawn on a sheet of paper, it's in 2D, but we can really move in *one* direction - along the circle. Now imagine a ring in 3 dimensions, and it still only has one dimension we can freely move on.
 
-## A benchmark with a known answer
+This dimension, which is an inherent property of the manifold, is called the *intrinsic dimension*. As the name suggests, it characterizes several intrinsic properties of the manifold. In particular, it sets the scaling law for density of uniformly sampled points from the manifold. A nice introduction to manifolds is given in the classic book by [John Lee](https://link.springer.com/book/10.1007/978-1-4419-9982-5).
 
-This smaller number is the *intrinsic dimension*. Estimating it from samples is difficult. On realistic data, there is usually no exact answer against which to check an estimate.
+It is obvious that estimating intrinsic dimensions from finite samples is important (this assumes data lies on a manifold --- the *manifold hypothesis*). It is also equally important to test how good these estimators are, especially when subjected to targeted stressors. We wanted to understand the role of *anisotropy*. Previous work however confounded anisotropy, homogeneity, local geometry, neighborhood scale, etc. What do we do ?
 
-With my collaborators, I developed HomID. It uses families of homogeneous spaces, including Stiefel, Grassmann, and flag manifolds. Their dimensions are known. This lets us compare an estimator’s answer with the ground truth.
 
-## Geometry is part of the test
+## A benchmark with a targeted stressor and known answer ##
 
-We compare estimators across these spaces and apply controlled distortions and noise. The aim is to test how the embedding and local geometry affect dimension estimates.
+My collaborators and I developed HomID for the same. It consists of embeddings of homogenous spaces, which are locally anisotropic. But because they are homogeneous spaces, the local geometry and density is the same *everywhere*. And even in that case, we observed that the tested intrinsic dimension estimators performed quite poorly. More importantly, the failure mode is qualitatively distinct from just squeezing otherwise isotropic manifolds. 
 
-The experiments reveal substantial differences between methods. They also show why success on familiar, nearly isotropic benchmarks can be misleading. Local anisotropy is a useful stressor, but our evidence does not establish it as the sole cause of estimation error.
+[AD : insert the picture on lPCA]
 
-## What the animation shows
+By the way, if you're curious about *how* these embeddings are generated, the general recipe is actually quite simple. It's based on the [Gilmore](https://journals.aps.org/rmp/abstract/10.1103/RevModPhys.62.867)-[Perelomov](https://link.springer.com/book/10.1007/978-3-642-61629-7) coherent state method.
+The mathematical description sounds complicated, but the idea is simple (see the accompanying animation). Recall that homogenous spaces are quotient spaces of the form $G/H$, where $G$ is a group and $H$ is a sub-group. If you're unfamiliar with groups and sub-groups, think of these as some class of *actions* (based on symmetries). A sub-group is then a sub-class of the actions. An example would be arbitrary translations, a subclass would be translation in fixed step sizes.
 
-The animation stretches a simple two-dimensional surface. Its shape in the surrounding space changes, while its intrinsic dimension stays fixed. This is a conceptual example of the distinction the benchmark studies. It is not a HomID sample or an estimator-performance plot.
+So the coherent state method suggests that you (1) take a *state* which is invariant under the subgroup $H$ and (2) apply $G$ on this state. The corresponding state that you get after (1) and (2) is a representation of the manifold $G/H$.
+
 
 > **The takeaway**
 >
-> A reliable dimension estimator must handle changes in geometry, not just recover the dimension of a sphere.
+> A reliable dimension estimator must be robust to anisotropy as well. Tested estimators are *not* robust.
+
+## The principle ##
+
+The key design principle for this benchmark was to understand the effect of anisotropy. In general, you should pick a problem/tool you care about, and ask what are reasonable properties that can affect the efficiency of this tool. Then design datasets which target those particular properties, making sure that you do not inadvertently change other properties.
 
 ## A few useful terms
 
