@@ -26,14 +26,6 @@ The mathematical description sounds complicated, but the idea is simple (see the
 So the coherent state method suggests that you (1) take a *state* which is invariant under the subgroup $H$ and (2) apply $G$ on this state. The corresponding state that you get after (1) and (2) is a representation of the manifold $G/H$.
 
 
-## The sphere as a homogeneous space
-
-The animation starts with $S^2$. Choose the unit vector at its north pole. Rotations about this axis form $\mathrm{SO}(2)$ and leave the vector unchanged. Rotations in $\mathrm{SO}(3)$ can carry it to any other point on the sphere. Rotations that differ by a turn about the original axis give the same point. Identifying these rotations gives the homogeneous space
-
-$$
-\frac{\mathrm{SO}(3)}{\mathrm{SO}(2)} \cong S^2.
-$$
-
 > **The takeaway**
 >
 > A reliable dimension estimator must be robust to anisotropy as well. Tested estimators are *not* robust.

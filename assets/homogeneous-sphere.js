@@ -221,13 +221,6 @@ export function drawHomogeneousSphere(ctx, seconds, palette) {
       smooth((seconds - 17.5) / 0.7) * (1 - state.quotient),
     );
 
-  if (state.so2Curve > 0) {
-    const orbit = Array.from({ length: 87 }, (_, i) => {
-      const phi = -0.15 + (i / 86) * 5.4 + state.twist * 0.2;
-      return project([Math.cos(phi), Math.sin(phi), 0], radius * 1.2);
-    });
-    arrow(orbit, ink, state.so2Curve, 2, 7);
-  }
   if (state.so3Curve > 0 && state.tilt > 0.01) {
     const orbit = Array.from({ length: 65 }, (_, i) =>
       project(

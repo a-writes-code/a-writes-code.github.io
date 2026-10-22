@@ -7,6 +7,7 @@
     "publicationYear": 2025,
     "scholarId": "EVtLmwcAAAAJ:Y0pCki6q_DkC",
     "visual": "manifold",
+    "animationHeading": "Coherent State Method",
     "summary": "Different estimators can give very different answers for the same data. HomID tests them on curved spaces whose true dimension is known.",
     "authors": "Aritra Das, Joseph T. Iosue, Victor V. Albert",
     "paperTitle": "HomID: Benchmarking Intrinsic Dimension Estimators on Homogeneous Manifolds with Anisotropic Embeddings",
