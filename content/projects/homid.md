@@ -1,5 +1,7 @@
 # Benchmarking Intrinsic Dimension Estimators #
 
+There exist many methods to estimate intrinsic dimension of a data manifold from a finite sample. But are they robust to anisotropy?
+
 The space in which a manifold is *represented* is not directly related to the actual directions that one can access when on the manifold. For example, think of a circle. When drawn on a sheet of paper, it's in 2D, but we can really move in *one* direction - along the circle. Now imagine a ring in 3 dimensions, and it still only has one dimension we can freely move on.
 
 This dimension, which is an inherent property of the manifold, is called the *intrinsic dimension*. As the name suggests, it characterizes several intrinsic properties of the manifold. In particular, it sets the scaling law for density of uniformly sampled points from the manifold. A nice introduction to manifolds is given in the classic book by [John Lee](https://link.springer.com/book/10.1007/978-1-4419-9982-5).
