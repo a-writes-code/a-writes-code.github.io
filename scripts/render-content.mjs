@@ -1,8 +1,34 @@
 import { readFile, writeFile, mkdir, cp } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
+import { createHash } from "node:crypto";
 import { parseProjectMarkdown } from "./markdown.mjs";
 
 const root = fileURLToPath(new URL("../", import.meta.url));
+const assetVersions = new Map();
+for (const file of [
+  "main.js",
+  "project-animations.js",
+  "homogeneous-sphere.js",
+  "style.css",
+  "projects.css",
+]) {
+  const content = await readFile(`${root}assets/${file}`);
+  assetVersions.set(
+    file,
+    createHash("sha256").update(content).digest("hex").slice(0, 12),
+  );
+}
+const assetUrl = (prefix, file) =>
+  `${prefix}assets/${file}?v=${assetVersions.get(file)}`;
+function moduleMap(prefix) {
+  const imports = Object.fromEntries(
+    ["project-animations.js", "homogeneous-sphere.js"].map((file) => [
+      `${prefix}assets/${file}`,
+      assetUrl(prefix, file),
+    ]),
+  );
+  return `<script type="importmap">${JSON.stringify({ imports })}</script>`;
+}
 // Self-host the build-time math renderer's CSS and fonts. No CDN is needed.
 const mathAssets = `${root}assets/vendor/katex`;
 await mkdir(mathAssets, { recursive: true });
@@ -106,7 +132,7 @@ function header() {
 function storyPage(project, index) {
   const next = projects[(index + 1) % projects.length];
   return `<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light dark"><meta name="description" content="${escape(project.summary)}"><meta property="og:title" content="${escape(project.title)} — Aritra Das"><meta property="og:description" content="${escape(project.summary)}"><meta property="og:type" content="article"><meta name="theme-color" content="#f7f6f0"><title>${escape(project.title)} — Aritra Das</title><link rel="canonical" href="${config.siteUrl}/projects/${project.slug}/"><link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../../assets/style.css"><link rel="stylesheet" href="../../assets/projects.css"><link rel="stylesheet" href="../../assets/vendor/katex/katex.min.css"><script>try { const t = localStorage.getItem('aritra-theme'); if(t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch {}</script><script type="module" src="../../assets/main.js"></script></head>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light dark"><meta name="description" content="${escape(project.summary)}"><meta property="og:title" content="${escape(project.title)} — Aritra Das"><meta property="og:description" content="${escape(project.summary)}"><meta property="og:type" content="article"><meta name="theme-color" content="#f7f6f0"><title>${escape(project.title)} — Aritra Das</title><link rel="canonical" href="${config.siteUrl}/projects/${project.slug}/"><link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="${assetUrl("../../", "style.css")}"><link rel="stylesheet" href="${assetUrl("../../", "projects.css")}"><link rel="stylesheet" href="../../assets/vendor/katex/katex.min.css"><script>try { const t = localStorage.getItem('aritra-theme'); if(t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch {}</script>${moduleMap("../../")}<script type="module" src="${assetUrl("../../", "main.js")}"></script></head>
 <body class="story-page"><a class="skip-link" href="#main">Skip to content</a>${header()}<main id="main"><article class="container story-article"><a class="story-back text-link" href="../../#projects"><span aria-hidden="true">←</span> All project stories</a><div class="story-heading"><div><p class="eyebrow">${escape(project.kicker)} · ${escape(project.year)}</p><h1>${project.titleHtml}</h1><div class="story-lede">${project.introHtml}</div><p class="story-authors">A project with ${escape(
     project.authors
       .split(", ")
@@ -116,6 +142,20 @@ function storyPage(project, index) {
 }
 
 let html = await readFile(`${root}index.html`, "utf8");
+// Version direct assets and nested module imports so a refresh gets new code.
+for (const file of ["style.css", "projects.css", "main.js"]) {
+  const pattern = new RegExp(
+    `(["'])\\./assets/${file.replace(".", "\\.")}(?:\\?v=[a-f0-9]+)?\\1`,
+    "g",
+  );
+  html = html.replace(pattern, `"${assetUrl("./", file)}"`);
+}
+html = html.replace(/<script type="importmap">[\s\S]*?<\/script>\s*/g, "");
+html = html.replace(
+  '<script type="module"',
+  `${moduleMap("./")}\n    <script type="module"`,
+);
+
 for (const [name, content] of [
   ["PROJECTS", projectSection()],
   ["PUBLICATIONS", publicationSection()],

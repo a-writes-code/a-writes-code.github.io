@@ -1,5 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
+import { readFile } from "node:fs/promises";
 import { createSiteServer } from "../scripts/serve.mjs";
 import { spinEnergy, metropolisSweep } from "../assets/brain-physics.js";
 
@@ -15,9 +17,27 @@ test("the public site and all local assets load at both root and GitHub project 
         assert.equal(response.status, 200);
         const html = await response.text();
         assert.match(html, /Aritra Das/);
-        const files = [...html.matchAll(/(?:src|href)="(\.\/[^"#?]+)"/g)].map(
+        const files = [...html.matchAll(/(?:src|href)="(\.\/[^"#]+)"/g)].map(
           (match) => match[1],
         );
+        const importMap = JSON.parse(
+          html.match(/<script type="importmap">([^<]+)<\/script>/)[1],
+        );
+        for (const [specifier, address] of Object.entries(importMap.imports)) {
+          const file = specifier.split("/").at(-1);
+          const content = await readFile(
+            new URL(`../assets/${file}`, import.meta.url),
+          );
+          const hash = createHash("sha256")
+            .update(content)
+            .digest("hex")
+            .slice(0, 12);
+          assert.ok(
+            address.endsWith(`?v=${hash}`),
+            "Nested imports must point at the current source version",
+          );
+          assert.equal((await fetch(new URL(address, pageUrl))).status, 200);
+        }
         assert.ok(
           files.length >= 4,
           "Styles, script, portrait, and favicon must be present",
