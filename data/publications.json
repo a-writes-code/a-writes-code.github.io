@@ -5,7 +5,7 @@
     "name": "Aritra Das",
     "url": "https://scholar.google.com/citations?hl=en&user=EVtLmwcAAAAJ"
   },
-  "syncedAt": "2026-10-23T00:05:27+00:00",
+  "syncedAt": "2026-11-02T19:30:34+00:00",
   "publications": [
     {
       "id": "EVtLmwcAAAAJ:IjCSPb-OGe4C",
@@ -13,7 +13,7 @@
       "authors": "D Doshi, T He, A Das, A Gromov",
       "venue": "arXiv preprint arXiv:2406.03495",
       "year": 2024,
-      "citationCount": 18,
+      "citationCount": 19,
       "scholarUrl": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=EVtLmwcAAAAJ&citation_for_view=EVtLmwcAAAAJ%3AIjCSPb-OGe4C"
     },
     {
@@ -31,14 +31,14 @@
       "authors": "T He, D Doshi, A Das, A Gromov",
       "venue": "Advances in Neural Information Processing Systems 37, 13244-13273",
       "year": 2024,
-      "citationCount": 49,
+      "citationCount": 50,
       "scholarUrl": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=EVtLmwcAAAAJ&citation_for_view=EVtLmwcAAAAJ%3AUeHWp8X0CEIC"
     },
     {
       "id": "EVtLmwcAAAAJ:Y0pCki6q_DkC",
-      "title": "Quantum-inspired Benchmark for estimating Intrinsic Dimension",
+      "title": "HomID : Benchmarking Intrinsic Dimension Estimators on Homogenous Manifolds with Anisotropic Embeddings",
       "authors": "A Das, JT Iosue, VV Albert",
-      "venue": "https://arxiv.org/abs/2510.01335",
+      "venue": "https://arxiv.org/abs/2510.01335v2",
       "year": null,
       "citationCount": null,
       "scholarUrl": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=EVtLmwcAAAAJ&citation_for_view=EVtLmwcAAAAJ%3AY0pCki6q_DkC"
