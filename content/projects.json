@@ -158,7 +158,7 @@
     "publicationYear": 2023,
     "scholarId": "EVtLmwcAAAAJ:zYLM7Y9cAGgC",
     "visual": "holes",
-    "summary": "Near full filling, a hole represents excitations. We study the low-energy dynamics, entanglement, and emergent integrability.",
+    "summary": "Near full filling, a hole represents excitations. We study the low-energy dynamics and show that this systems is integrabile.",
     "authors": "Aritra Das, Umberto Borla, Sergej Moroz",
     "paperTitle": "Fractionalized holes in one-dimensional Z₂ gauge theory coupled to fermion matter: Deconfined dynamics and emergent integrability",
     "paperUrl": "https://doi.org/10.1103/PhysRevB.107.064302",
@@ -167,7 +167,9 @@
     "animationLabel": "A hole hops by two sites at each step along a one-dimensional lattice.",
     "animationNote": "",
     "stages": [
-      ""
+      "Near full filling, a hole represents low-energy excitations.",
+      "The dynamics shows that holes hop by two.",
+      "We can track the dynamics analytically."
     ],
     "animationHeading": "Holes on 1D lattices",
     "minimalAnimation": true,
