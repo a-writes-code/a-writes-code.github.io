@@ -138,8 +138,8 @@
     "animationNote": "Schematic neuron populations. Brightness illustrates a qualitative change, not measured neuron activity or a pruning operation.",
     "stages": [
       "Memorizing neurons are more prevalent with little regularization.",
-      "We increase regularization.",
-      "Generalizing neurons replace memorizing ones."
+      "As we increase regularization...",
+      "...Generalizing neurons replace memorizing ones."
     ],
     "animationHeading": "Generalization and Memorization in Neural Networks",
     "duration": 12,
