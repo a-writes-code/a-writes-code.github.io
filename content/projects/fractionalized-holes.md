@@ -20,7 +20,7 @@ The animation shows a hole hopping by two sites on a one-dimensional lattice. It
 
 > **The takeaway**
 >
-> The right description of an excitation depends on its background. A missing particle can behave as a domain wall.
+> We observe integrable motion for holes as degrees of freedom near full filling.
 
 ## A few useful terms
 
