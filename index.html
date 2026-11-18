@@ -231,17 +231,17 @@
             ><button
               type="button"
               class="filter"
-              data-filter="learning"
+              data-filter="language"
               aria-pressed="false"
             >
-              Physics of learning</button
+              Structure of Language</button
             ><button
               type="button"
               class="filter"
-              data-filter="quantum"
+              data-filter="synth-data"
               aria-pressed="false"
             >
-              Quantum & AI
+              Synthetic Data
             </button>
           </div>
           <span id="research-count" class="small-mono" role="status"
@@ -249,52 +249,46 @@
           >
         </div>
         <div class="research-grid">
-          <article class="research-card" data-topics="learning">
-            <div class="card-art art-modular" aria-hidden="true">
+          <article class="research-card" data-topics="language">
+            <div class="card-art art-quantum" aria-hidden="true">
               <svg viewBox="0 0 360 170">
-                <g
-                  class="orbit-lines"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width=".8"
-                >
-                  <circle cx="180" cy="85" r="60" />
-                  <ellipse cx="180" cy="85" rx="94" ry="60" />
-                  <path
-                    d="m180 25 47 97-105-50 116-13-84 81 26-115 26 115-84-81 116 13-105 50z"
-                  />
+                <g fill="none" stroke="currentColor" stroke-width="1">
+                  <path d="M48 55H312M48 115H312" />
+                  <rect x="92" y="36" width="38" height="38" rx="2" />
+                  <rect x="230" y="96" width="38" height="38" rx="2" />
+                  <path d="M180 55V115" />
+                  <circle cx="180" cy="115" r="11" />
+                  <path d="M180 104v22" />
                 </g>
-                <g fill="currentColor">
-                  <circle cx="180" cy="25" r="3" />
-                  <circle cx="227" cy="122" r="3" />
-                  <circle cx="122" cy="72" r="3" />
-                  <circle cx="238" cy="59" r="3" />
-                  <circle cx="154" cy="140" r="3" />
-                </g>
-                <text x="286" y="148">a + b (mod p)</text></svg
-              ><span class="art-number">01</span>
+                <circle cx="180" cy="55" r="4" fill="currentColor" />
+                <g fill="currentColor" font-size="17">
+                  <text x="104" y="61">H</text>
+                  <text x="241" y="122">U</text>
+                  <text x="48" y="148" font-size="11">|ψ⟩ →</text>
+                </g></svg
+              ><span class="art-number">03</span>
             </div>
             <div class="card-body">
-              <p class="card-kicker">EMERGENCE · MODULAR ARITHMETIC</p>
-              <h3>How do neural networks<br />learn structure?</h3>
+              <p class="card-kicker">STRUCTURE OF LANGUAGE · TREES</p>
+              <h3>How do we experimentally probe <br />the structure of language?</h3>
               <p>
-                I use controlled modular arithmetic tasks to study emergent
-                behavior in deep learning. Simple problems can reveal rich
-                learning dynamics.
+                I’m interested in developing trainable models that can approximate language.
               </p>
               <details>
                 <summary>
                   A closer look <span aria-hidden="true">+</span>
                 </summary>
                 <p>
-                  These tasks give us a controlled setting for asking how a
-                  model learns the structure of a problem, and how its behavior
-                  changes during training.
+                  How can we better understand what properties of data influence 
+                  learning dynamics, representations and mechanisms? We introduce tree-grams,
+                  which serve as controlled approximators of language. We see that data from 
+                  such generated models can throw light on practical situations like hyper-parameter tuning
+                  and pre-training to finetuning transfer.
                 </p>
               </details>
             </div>
           </article>
-          <article class="research-card" data-topics="learning quantum">
+          <article class="research-card" data-topics="synth-data">
             <div class="card-art art-manifold" aria-hidden="true">
               <svg viewBox="0 0 360 170">
                 <g
@@ -334,47 +328,57 @@
                 </summary>
                 <p>
                   Data can occupy a high-dimensional space while depending on
-                  far fewer degrees of freedom. Known manifolds help us test how
-                  well dimension estimators recover that structure.
+                  far fewer degrees of freedom. Intrinsic dimension estimators 
+                  need stricter protocols and targetted stressors
+                  in evaluation benchmarks. Manifolds from quantum information 
+                  (or classic differential geometry, based on your taste),
+                  can help highlight the role of anisotropy.
+                  This can also help design better estimators.
                 </p>
               </details>
             </div>
           </article>
-          <article class="research-card" data-topics="quantum">
-            <div class="card-art art-quantum" aria-hidden="true">
+          <article class="research-card" data-topics="synth-data">
+            <div class="card-art art-modular" aria-hidden="true">
               <svg viewBox="0 0 360 170">
-                <g fill="none" stroke="currentColor" stroke-width="1">
-                  <path d="M48 55H312M48 115H312" />
-                  <rect x="92" y="36" width="38" height="38" rx="2" />
-                  <rect x="230" y="96" width="38" height="38" rx="2" />
-                  <path d="M180 55V115" />
-                  <circle cx="180" cy="115" r="11" />
-                  <path d="M180 104v22" />
+                <g
+                  class="orbit-lines"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width=".8"
+                >
+                  <circle cx="180" cy="85" r="60" />
+                  <ellipse cx="180" cy="85" rx="94" ry="60" />
+                  <path
+                    d="m180 25 47 97-105-50 116-13-84 81 26-115 26 115-84-81 116 13-105 50z"
+                  />
                 </g>
-                <circle cx="180" cy="55" r="4" fill="currentColor" />
-                <g fill="currentColor" font-size="17">
-                  <text x="104" y="61">H</text>
-                  <text x="241" y="122">U</text>
-                  <text x="48" y="148" font-size="11">|ψ⟩ →</text>
-                </g></svg
-              ><span class="art-number">03</span>
+                <g fill="currentColor">
+                  <circle cx="180" cy="25" r="3" />
+                  <circle cx="227" cy="122" r="3" />
+                  <circle cx="122" cy="72" r="3" />
+                  <circle cx="238" cy="59" r="3" />
+                  <circle cx="154" cy="140" r="3" />
+                </g>
+                <text x="286" y="148">a + b (mod p)</text></svg
+              ><span class="art-number">01</span>
             </div>
             <div class="card-body">
-              <p class="card-kicker">QUANTUM INFORMATION · AI</p>
-              <h3>Can AI help us solve<br />quantum problems?</h3>
+              <p class="card-kicker">SYNTHETIC DATA · MODULAR ARITHMETIC</p>
+              <h3>How do neural networks<br />learn structure?</h3>
               <p>
-                I’m interested in using AI for quantum information and
-                simulation, including efficient quantum algorithms and the
-                structure of physical data.
+                I use controlled modular arithmetic tasks to study emergent
+                behavior in deep learning. Simple problems can reveal rich
+                learning dynamics.
               </p>
               <details>
                 <summary>
                   A closer look <span aria-hidden="true">+</span>
                 </summary>
                 <p>
-                  This is a direction I’m excited to explore: using learning
-                  methods to understand physical data and find efficient
-                  implementations of quantum algorithms.
+                  These tasks give us a controlled setting for asking how a
+                  model learns the structure of a problem, and how its behavior
+                  changes during training.
                 </p>
               </details>
             </div>
