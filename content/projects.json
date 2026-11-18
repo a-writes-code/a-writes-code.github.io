@@ -54,9 +54,9 @@
     "animationLabel": "Three modular task sequences appear in turn. Each contains three completed (x, y, z) cells and one random (x, y, ?) query. The coefficients 2 and 3, then 5 and 4, are green. The final coefficients 3 and 6 are red.",
     "animationNote": "Exact modulo-seven examples illustrate the prompt format; model weights do not change during in-context learning.",
     "stages": [
-      "z = 2x + 3y (mod 7).",
-      "z = 5x + 4y (mod 7).",
-      "z = 3x + 6y (mod 7)."
+      "Each sequence is a particular linear combination task.",
+      "We pre-train on a bunch of different tasks.",
+      "With sufficient diversity, model learns  unseen tasks."
     ],
     "animationHeading": "In-context learning",
     "duration": 18,
@@ -84,9 +84,9 @@
     "animationLabel": "Two branches compute xy cubed and x squared y modulo seven for x equals three and y equals two. Their outputs, three and four, add to zero modulo seven.",
     "animationNote": "An arithmetic schematic; not the full neural architecture or a training result.",
     "stages": [
-      "Compute xy³ and x²y modulo 7.",
-      "Add the two branch outputs: 3 + 4.",
-      "For x = 3 and y = 2, the result is 0 modulo 7."
+      "Compute individual terms.",
+      "Add the two branch outputs.",
+      "Find the final result with a final readout."
     ],
     "animationHeading": "Modular Polynomial with Neural Networks",
     "duration": 8,
@@ -137,9 +137,9 @@
     "animationLabel": "A schematic neural network has red memorizing neurons and green generalizing neurons. Red neurons begin bright. As regularization increases, red neurons dim but remain visible while green neurons reach full brightness.",
     "animationNote": "Schematic neuron populations. Brightness illustrates a qualitative change, not measured neuron activity or a pruning operation.",
     "stages": [
-      "Memorizing neurons begin brighter.",
-      "Regularization increases.",
-      "Generalizing neurons brighten; memorizing neurons stay faint."
+      "Memorizing neurons are more prevalent with little regularization.",
+      "We increase regularization.",
+      "Generalizing neurons replace memorizing ones."
     ],
     "animationHeading": "Generalization and Memorization in Neural Networks",
     "duration": 12,
@@ -158,7 +158,7 @@
     "publicationYear": 2023,
     "scholarId": "EVtLmwcAAAAJ:zYLM7Y9cAGgC",
     "visual": "holes",
-    "summary": "Near full filling, a hole can separate two shifted quantum backgrounds. We study the resulting motion, entanglement, and emergent integrability.",
+    "summary": "Near full filling, a hole represents excitations. We study the low-energy dynamics, entanglement, and emergent integrability.",
     "authors": "Aritra Das, Umberto Borla, Sergej Moroz",
     "paperTitle": "Fractionalized holes in one-dimensional Z₂ gauge theory coupled to fermion matter: Deconfined dynamics and emergent integrability",
     "paperUrl": "https://doi.org/10.1103/PhysRevB.107.064302",
