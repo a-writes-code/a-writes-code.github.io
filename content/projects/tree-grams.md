@@ -10,17 +10,17 @@ Tree-grams build the conditional distribution $p(x_n \mid x_{1:n-1})$ through a 
 
 ## Controlled data as an experiment
 
-We train the generators on text, then use their samples to study learning. On TinyStories, tuning narrow transformers on simpler generated data improves learning-rate transfer under maximal update parametrization (μP). This advantage does *not* hold for FineWeb-Edu.
+We train the generators on text, then use their samples to study learning. On TinyStories and Wiki-Text, tuning narrow transformers on simpler generated data improves learning-rate transfer under maximal update parametrization (μP). 
 
 Continued training on a new distribution also depends on the target’s entropy and correlation range. Allowing tree-grams to select among topologies produces sparse routing: up to 95% of candidate topologies can be pruned with little performance change in the tested setting.
 
 ## What the comparison tells us
 
-Tree-grams outperform the tested traditional *n*-gram baselines. A gap to deep transformers remains at longer contexts. Their purpose is to make language a *controlled experimental setting*.
+Tree-grams outperform the tested traditional *n*-gram baselines and scales better than shallow transformers. A gap to deep transformers remains at longer contexts. Their purpose is to make language a *controlled experimental setting*.
 
 ## Read the animation
 
-The illustration first expands the visible context, then increases the number of channels inside each node. A pulse follows information through the hierarchy to a next-token distribution. It is a schematic, not a full architecture diagram or a measured prediction.
+The schematic illustration shows what we alter - either the context or the capacity of the model at fixed context size. 
 
 ## A few useful terms
 
