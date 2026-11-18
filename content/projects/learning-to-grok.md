@@ -20,7 +20,7 @@ The animation shows three modular tasks in sequence. Each prompt contains three 
 
 > **The takeaway**
 >
-> Training on a more diverse collection of tasks can change whether a model learns reusable computations.
+> We can identify the precise ways transformers compose skills to perform in-context learning in modular arithmetic setup.
 
 ## A few useful terms
 
