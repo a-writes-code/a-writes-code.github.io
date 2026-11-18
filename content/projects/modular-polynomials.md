@@ -22,7 +22,7 @@ The broader lesson is that *a solution exists* and *training finds a solution* a
 
 > **The takeaway**
 >
-> Representation and learnability are different questions. Constructing a solution helps expose the gap.
+> Existence of solutions doesn't imply that networks can learn them with standard training techniques.
 
 ## A few useful terms
 
