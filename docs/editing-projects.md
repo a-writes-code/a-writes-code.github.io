@@ -4,6 +4,7 @@ Open a project on the website. Select **Edit this page on GitHub** in the footer
 
 You can also open the [project text folder](https://github.com/a-writes-code/a-writes-code.github.io/tree/main/content/projects). Each `.md` file contains one article:
 
+- `tree-grams.md`
 - `homid.md`
 - `learning-to-grok.md`
 - `modular-polynomials.md`
@@ -48,7 +49,9 @@ $$
 
 Equations render during the build with self-hosted KaTeX fonts. Invalid formulas show their source in red rather than prevent the rest of the article from publishing.
 
-The homepage card title and summary, paper metadata, animation timing, and captions are in `content/projects.json`. The article title and body come only from the Markdown file. Most animations are in `assets/project-animations.js`; the HomID rotation sequence is in `assets/homogeneous-sphere.js`.
+The homepage card title and summary, paper metadata, animation timing, and captions are in `content/projects.json`. The article title and body come only from the Markdown file. Set `includeInPublications` to `true` for a new preprint to display it before Scholar indexes it. A later Scholar record is matched by title or arXiv ID, so it does not appear twice.
+
+Most animations are in `assets/project-animations.js`; the HomID rotation sequence is in `assets/homogeneous-sphere.js`.
 
 ## If an edit does not appear
 

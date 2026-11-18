@@ -1,6 +1,6 @@
 # Aritra Das — personal website
 
-A research website at the intersection of physics and AI. It contains six project stories with short explanatory animations, a searchable publication list from Google Scholar, and sections for research interests, teaching, skills, and life outside work.
+A research website at the intersection of physics and AI. It contains seven project stories with short explanatory animations, a searchable publication list from Google Scholar, and sections for research interests, teaching, skills, and life outside work.
 
 The live site is <https://a-writes-code.github.io/>. The repository is `a-writes-code/a-writes-code.github.io`.
 
@@ -31,7 +31,7 @@ Open <http://127.0.0.1:4173>. Use `PORT=4174 npm start` to select a different po
 | `assets/style.css`             | Original layout, color themes, and common components                                         |
 | `assets/projects.css`          | Project cards, article layout, publication list, and navigation additions                    |
 | `assets/main.js`               | Navigation, theme, publication search, and other page controls                               |
-| `assets/project-animations.js` | Project player, task sequences, arithmetic circuit, neuron regularization, and two-site hops |
+| `assets/project-animations.js` | Project player, text hierarchies, task sequences, arithmetic circuit, neurons, and two-site hops |
 | `assets/homogeneous-sphere.js` | HomID's 28-second sphere, stabilizer, orbit, and quotient sequence                           |
 | `assets/projects/homid/`       | User-supplied local PCA spectra figure                                                       |
 | `assets/brain-physics.js`      | Retained source for the earlier brain and Ising illustration                                 |
@@ -57,7 +57,7 @@ This regenerates the articles and homepage blocks. Keep the `PROJECTS` and `PUBL
 npm run check
 ```
 
-The command checks JavaScript syntax, renders the content, runs Node and Python tests, and builds `dist/`. The expected result is twelve passing Node tests, five passing Python tests, and `Built static website in dist/`.
+The command checks JavaScript syntax, renders the content, runs Node and Python tests, and builds `dist/`. The expected result is passing Node and Python tests, and `Built static website in dist/`.
 
 The HTTP tests serve the homepage and all project articles below a repository subpath. They check local assets, navigation, article output against its Markdown source, missing files, and path traversal protection. Numerical tests check exact modular arithmetic, task examples, the regularization brightness transition, two-site hole motion, Ising energy rules, and cellular automaton examples. A Markdown test checks a substantial article rewrite. The publication tests cover HTML entities, accessible math labels, missing years, bot pages, incorrect authors, incomplete pagination, duplicate records, and preservation of the last good snapshot.
 
@@ -85,7 +85,9 @@ python3 scripts/sync_publications.py --allow-removals
 npm run check
 ```
 
-The displayed publication metadata follows Scholar. Missing years are supplied from the matching project's linked paper and marked with an asterisk. Google can block automated access, so the last-sync date is the useful freshness indicator. Check Actions if it becomes stale.
+New preprints with `includeInPublications: true` in `content/projects.json` also appear before Scholar indexing. They merge with later Scholar entries by title or arXiv ID, without altering the Scholar snapshot.
+
+The displayed Scholar publication metadata follows Scholar. Missing years are supplied from the matching project's linked paper and marked with an asterisk. Google can block automated access, so the last-sync date is the useful freshness indicator. Check Actions if it becomes stale.
 
 ## Publishing
 

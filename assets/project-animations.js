@@ -342,6 +342,92 @@ function holes(ctx, t, p) {
   }
 }
 
+// A schematic of context aggregation, rather than the paper's full hybrid block.
+// Channel marks illustrate rank; their count is not a numerical rank scale.
+function treegram(ctx, t, p, seconds) {
+  const longContext = seconds >= 6;
+  const capacity = smooth((seconds - 12) / 2);
+  const words = longContext
+    ? ["Once", "upon", "a", "time", "there", "was", "a"]
+    : ["there", "was", "a"];
+  const n = longContext ? 8 : 4;
+  const d = seconds >= 12 ? 256 : 64;
+  const blue = p.text === "#f2f2ef" ? "#9abbd5" : "#577f9b";
+
+  box(ctx, 35, 8, 310, 42, longContext ? p.ink : p.line, p.paper);
+  box(ctx, 362, 8, 323, 42, seconds >= 12 ? p.accent : p.line, p.paper);
+  text(ctx, `Context window  n = ${n}`, 52, 29, 18, p.ink);
+  text(ctx, `Capacity  d = ${d}`, 379, 29, 18, p.ink);
+
+  let level = words.map((word, i) => ({
+    x: 55 + (i * 390) / (words.length - 1),
+    y: 250,
+    word,
+  }));
+  const levels = [level];
+  const edges = [];
+  while (level.length > 1) {
+    const parents = [];
+    for (let i = 0; i < level.length; i += 2) {
+      const children = level.slice(i, i + 2);
+      const parent = {
+        x: children.reduce((sum, child) => sum + child.x, 0) / children.length,
+        y: level[0].y - 56,
+      };
+      children.forEach((child) =>
+        edges.push({ child, parent, depth: levels.length }),
+      );
+      parents.push(parent);
+    }
+    levels.push(parents);
+    level = parents;
+  }
+  edges.forEach(({ child, parent, depth }) => {
+    line(ctx, child.x, child.y, parent.x, parent.y, p.line, 1.6);
+    const flow = ((seconds * 0.55 - depth * 0.2) % 1 + 1) % 1;
+    dot(
+      ctx,
+      child.x + (parent.x - child.x) * flow,
+      child.y + (parent.y - child.y) * flow,
+      2.5,
+      p.ink,
+    );
+  });
+  levels[0].forEach(({ x, y, word }) => {
+    box(ctx, x - 25, y - 14, 50, 28, p.line, p.paper);
+    text(ctx, word, x, y, 13, p.text, "center");
+  });
+  levels.slice(1).forEach((nodes) =>
+    nodes.forEach(({ x, y }) => {
+      const radius = 13 + 5 * capacity;
+      dot(ctx, x, y, radius, p.surface);
+      ctx.beginPath();
+      ctx.arc(x, y, radius, 0, Math.PI * 2);
+      ctx.strokeStyle = capacity > 0 ? p.accent : p.ink;
+      ctx.lineWidth = 1.6;
+      ctx.stroke();
+      for (let channel = 0; channel < 7; channel++) {
+        ctx.save();
+        ctx.globalAlpha = channel < 3 ? 1 : capacity;
+        const offset =
+          channel < 3 ? (channel - 1) * 5 : [-12, -8, 8, 12][channel - 3];
+        line(ctx, x + offset, y - 5, x + offset, y + 5, blue, 1.7);
+        ctx.restore();
+      }
+    }),
+  );
+  const root = level[0];
+  line(ctx, root.x + 16, root.y, 535, 142, p.ink, 1.8);
+  box(ctx, 535, 115, 155, 54, p.ink, p.paper);
+  text(ctx, "p(next token)", 612, 142, 18, p.ink, "center");
+  text(ctx, "autoregressive prediction", 612, 195, 13, p.muted, "center");
+  text(
+    ctx,
+    `${n - 1} context tokens → next-token distribution`,
+    360, 308, 18, p.muted, "center",
+  );
+}
+
 const scenes = {
   manifold: (ctx, t, palette, seconds) =>
     drawHomogeneousSphere(ctx, seconds, palette),
@@ -350,6 +436,7 @@ const scenes = {
   automata: automaton,
   noise,
   holes,
+  treegram,
 };
 
 export function initProjectAnimations() {

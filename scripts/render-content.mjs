@@ -2,6 +2,7 @@ import { readFile, writeFile, mkdir, cp } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { createHash } from "node:crypto";
 import { parseProjectMarkdown } from "./markdown.mjs";
+import { publicationItems } from "./publications.mjs";
 
 const root = fileURLToPath(new URL("../", import.meta.url));
 const assetVersions = new Map();
@@ -61,7 +62,6 @@ const escape = (text = "") =>
   );
 const externalLink = (href, text, className = "text-link") =>
   `<a class="${className}" href="${escape(href)}" target="_blank" rel="noopener noreferrer">${escape(text)} <span aria-hidden="true">↗</span></a>`;
-const byId = new Map(projects.map((project) => [project.scholarId, project]));
 
 function animation(project, compact = false) {
   const duration = project.duration ?? 12;
@@ -92,20 +92,8 @@ function publicationSection() {
   const date = new Date(publications.syncedAt);
   if (!Number.isFinite(date.getTime()) || !publications.publications.length)
     throw new Error("Publication snapshot is missing or invalid");
-  const items = publications.publications
-    .map((record) => {
-      const project = byId.get(record.id);
-      return {
-        ...record,
-        project,
-        displayYear: record.year ?? project?.publicationYear ?? null,
-      };
-    })
-    .sort(
-      (a, b) =>
-        (b.displayYear ?? 0) - (a.displayYear ?? 0) ||
-        a.title.localeCompare(b.title),
-    );
+  const items = publicationItems(publications.publications, projects);
+  const hasLinkedPreprints = items.some((item) => item.metadataSource === "paper");
   const years = [
     ...new Set(items.map((item) => item.displayYear).filter(Boolean)),
   ];
@@ -117,11 +105,11 @@ function publicationSection() {
   }).format(date);
   return `<section id="publications" class="section container publications-section" aria-labelledby="publications-heading">
     <div class="section-heading"><div><p class="eyebrow">02 / PUBLICATIONS</p><h2 id="publications-heading">Papers & preprints<span class="accent">.</span></h2></div>${externalLink(publications.profile.url, "Google Scholar profile")}</div>
-    <div class="publication-source"><span class="status-dot" aria-hidden="true"></span><p>From Google Scholar · Synced <time datetime="${escape(publications.syncedAt)}">${readableDate}</time> · Refreshed weekly</p></div>
+    <div class="publication-source"><span class="status-dot" aria-hidden="true"></span><p>${hasLinkedPreprints ? "Google Scholar + linked preprints" : "From Google Scholar"} · Scholar synced <time datetime="${escape(publications.syncedAt)}">${readableDate}</time> · Refreshed weekly</p></div>
     <div class="publication-toolbar js-only"><label class="publication-search"><span class="sr-only">Search publications</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="10" cy="10" r="6"/><path d="m15 15 5 5"/></svg><input type="search" id="publication-search" placeholder="Search papers, authors, or venues" autocomplete="off"></label><label class="publication-year">Year <select id="publication-year" aria-label="Publication year"><option value="all">All years</option>${years.map((year) => `<option value="${year}">${year}</option>`).join("")}</select></label><span id="publication-count" class="small-mono" role="status">${items.length} works</span></div>
-    <ol class="publication-list">${items.map((record) => `<li class="publication-item" data-year="${record.displayYear ?? "unknown"}"><span class="publication-date">${record.displayYear ?? "n.d."}${record.year == null && record.displayYear != null ? '<span class="supplemented-year" title="Year supplied by the linked paper">*</span>' : ""}</span><div class="publication-copy"><h3>${externalLink(record.scholarUrl, record.title, "publication-title")}</h3><p class="publication-authors">${escape(record.authors)}</p><p class="publication-venue">${escape(record.venue || "Venue not listed on Scholar")}</p><div class="publication-links">${record.project ? `${externalLink(record.project.paperUrl, "Paper")}<a class="text-link" href="./projects/${record.project.slug}/">Project story <span aria-hidden="true">→</span></a>` : ""}</div></div></li>`).join("\n")}</ol>
+    <ol class="publication-list">${items.map((record) => `<li class="publication-item" data-year="${record.displayYear ?? "unknown"}"><span class="publication-date">${record.displayYear ?? "n.d."}${record.year == null && record.displayYear != null ? '<span class="supplemented-year" title="Year supplied by the linked paper">*</span>' : ""}</span><div class="publication-copy"><h3>${externalLink(record.scholarUrl, record.title, "publication-title")}</h3><p class="publication-authors">${escape(record.authors)}</p><p class="publication-venue">${escape(record.venue || "Venue not listed on Scholar")}${record.metadataSource === "paper" ? " · Added from the paper" : ""}</p><div class="publication-links">${record.project ? `${externalLink(record.project.paperUrl, "Paper")}<a class="text-link" href="./projects/${record.project.slug}/">Project story <span aria-hidden="true">→</span></a>` : ""}</div></div></li>`).join("\n")}</ol>
     <p id="publication-empty" class="publication-empty" hidden>No papers match this search. Try a different word or year.</p>
-    <p class="publication-footnote">Titles, author lists, and venues follow the Scholar profile. * Missing years are supplied by the linked papers.</p>
+    <p class="publication-footnote">Scholar metadata refreshes weekly. Newly linked preprints remain visible while awaiting indexing. * Missing years are supplied by the linked papers.</p>
   </section>`;
 }
 
@@ -179,5 +167,5 @@ for (const [index, project] of projects.entries()) {
   await writeFile(`${directory}/index.html`, storyPage(project, index));
 }
 console.log(
-  `Rendered ${projects.length} project stories and ${publications.publications.length} publications`,
+  `Rendered ${projects.length} project stories and ${publicationItems(publications.publications, projects).length} publications`,
 );

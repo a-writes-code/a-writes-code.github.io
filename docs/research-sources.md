@@ -1,6 +1,14 @@
 # Sources for project stories and publications
 
-Scope: the six works on Aritra Das’s public Google Scholar profile, checked on 22 October 2026. The search stops at these six works. It does not include unpublished projects or papers belonging to authors with similar names.
+Original scope: the six works on Aritra Das’s public Google Scholar profile, checked on 22 October 2026. On 18 November 2026, the author supplied the Tree-grams preprint below. The site now includes that seventh project. It does not include unpublished projects or papers belonging to authors with similar names.
+
+## Tree-grams update — 18 November 2026
+
+Source: [arXiv:2611.23093v1](https://arxiv.org/html/2611.23093v1), with title, author order, and submission date checked on the [abstract page](https://arxiv.org/abs/2611.23093). Evidence: architecture and comparisons in Sections 2–3; controlled generation and learning-rate transfer in Section 4, including the FineWeb-Edu exception; continued-training results in Section 5; topology pruning in Section 6. Resource links follow the paper's release links.
+
+The new animation is a schematic of hierarchical context aggregation. It illustrates changing the horizon while holding rank fixed, followed by changing rank while holding the horizon fixed. Channel marks are illustrative. It does not reproduce the full hybrid block, numerical predictions, or measured performance. The language-interest card now uses a text hierarchy instead of a quantum circuit. Existing research-interest prose is preserved.
+
+The supplied preprint is also shown in Publications from its project metadata until Scholar indexes it. Rendering matches Scholar entries by record ID, normalized title, or arXiv identifier, including version suffixes. This avoids duplicate entries after a refresh and leaves the verified Scholar snapshot unchanged.
 
 ## Publication inventory
 

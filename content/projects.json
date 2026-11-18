@@ -1,5 +1,36 @@
 [
   {
+    "slug": "tree-grams",
+    "shortTitle": "Tree-grams: controlled approximations of language",
+    "kicker": "LANGUAGE · HIERARCHICAL MODELS",
+    "year": "2026",
+    "publicationYear": 2026,
+    "includeInPublications": true,
+    "visual": "treegram",
+    "animationHeading": "Tree-grams: Context and Capacity",
+    "summary": "How does the structure of language shape learning? Tree-grams give us separate controls for context length and capacity to study this question.",
+    "authors": "Aritra Das, Francesco Cagnetta, Darshil Doshi, Victor V. Albert, Maissam Barkeshli, Andrey Gromov",
+    "paperTitle": "What's in a Tree ? Hierarchical n-gram models as controlled approximators of language",
+    "paperUrl": "https://arxiv.org/abs/2611.23093",
+    "paperType": "Preprint",
+    "venue": "arXiv:2611.23093 · November 2026",
+    "codeUrl": "https://github.com/a-writes-code/treegram",
+    "animationLabel": "Text tokens pass through a hierarchy to a next-token distribution. The horizon increases from four to eight tokens at fixed rank. The rank then increases from 64 to 256 at fixed horizon.",
+    "animationNote": "Schematic hierarchy and illustrative channel counts. The animation shows the two controls, not the complete architecture or a measured model prediction.",
+    "duration": 18,
+    "stageTimes": [
+      0,
+      6,
+      12
+    ],
+    "stages": [
+      "Begin with a short context and fixed capacity.",
+      "Increase the horizon n; keep the rank d fixed.",
+      "Increase the rank d; keep the horizon n fixed."
+    ],
+    "showTimeline": true
+  },
+  {
     "slug": "homid",
     "shortTitle": "HomID: a stress test for dimension estimators",
     "kicker": "GEOMETRY · INTRINSIC DIMENSION",
