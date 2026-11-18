@@ -22,7 +22,7 @@ The central question is more useful than a simple choice between learning and me
 
 > **The takeaway**
 >
-> Learning a rule and memorizing exceptions can coexist. Targeted interventions help distinguish their roles.
+> Learning a rule and memorizing exceptions can coexist. Regularization favors generalization.
 
 ## A few useful terms
 
